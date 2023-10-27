@@ -202,11 +202,24 @@ VALUES ('O19008', '1996-05-24', 'C00005', 'F', 'N', 'S00004', '1996-05-26', 'In 
 
     select product_no,sum(Qty_ordered),sum(Qty_ordered)*Product_rate from sale_order_details group by product_no;
 
-      
+    SELECT c.Name,sod.Order_no,avg(Qty_ordered) 
+    FROM sale_order_details sod, sale_order s,client_master c 
+    where sod.Order_no=s.Order_no and s.Client_no=c.Client_No
+    group by sod.Order_no
+    having sum(Qty_ordered*product_rate) <= 15000;
 
-select c.client_no,sod.order_no,sum(Qty_ordered*product_rate) 'total'
-from sale_order_details sod,Client_master c,Sale_order s 
-where sod.order_no=s.order_no and s.Client_no=c.Client_no and total>15000
-group by order_no;
-
+    SELECT sod.Order_no,sum(Qty_ordered*Product_rate)
+    FROM sale_order_details sod, sale_order s 
+    where sod.Order_no=s.Order_no 
+    group by sod.Order_no;
+    
+    
+    -- *****************
+ -- In below Query group by is based on order_date therefore 
+--  it can't be excluded otherwise there's two order-dates with jan month  
+    select Order_date,month(Order_date),sum(Qty_ordered*Product_rate) 
+    from sale_order s, sale_order_details sod
+    where s.Order_no=sod.Order_no
+    group by month(Order_date)
+    having month(Order_date)=1;
 
