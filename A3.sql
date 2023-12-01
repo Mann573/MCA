@@ -222,4 +222,87 @@ VALUES ('O19008', '1996-05-24', 'C00005', 'F', 'N', 'S00004', '1996-05-26', 'In 
     where s.Order_no=sod.Order_no
     group by month(Order_date)
     having month(Order_date)=1;
+-- 6)
+-- a)
+ 
+   select s.product_no,p.descriptions,c.Name from sale_order_details s,sale_order o,client_master c,product_master p 
+   where p.product_no=s.product_no and s.Order_no=o.Order_no and o.Client_no=c.Client_No
+   group by product_no
+   having c.Name="Ivan Bayross";
+    
+-- b)
+   
+   select s.product_no,p.descriptions,o.Dely_date from sale_order_details s,sale_order o,product_master p 
+   where p.product_no=s.product_no and s.Order_no=o.Order_no
+   group by product_no
+   having month(o.Dely_date)=month(current_date());
+
+
+-- c)
+
+
+-- Wrong
+select s.product_no,min(o.Order_date),max(o.Order_date) from sale_order_details s,sale_order o
+where s.Order_no=o.Order_no group by s.product_no order by o.Order_date; 
+
+-- d)
+select cm.name from sale_order_details as sod,sale_order as so,client_master as cm,product_master as pm 
+where sod.order_no=so.order_no and sod.product_no=pm.product_no and so.client_no=cm.client_no and pm.descriptions="cd drive";
+
+-- e)
+select sod.order_no,sod.product_no from sale_order_details as sod,sale_order as so,client_master as cm,product_master as pm 
+where sod.order_no=so.order_no and sod.product_no=pm.product_no and so.client_no=cm.client_no and pm.descriptions="1.44 floppies" and sod.qty_ordered<5;
+
+-- f)
+select sod.product_no,sod.qty_ordered from sale_order_details as sod,sale_order as so,client_master as cm,product_master as pm 
+where sod.order_no=so.order_no and so.client_no=cm.client_no and sod.product_no=pm.product_no and cm.name in ("ivan bayross","Vandana Saitwal");
+
+-- g)
+select sod.product_no,sod.qty_ordered from sale_order_details as sod,sale_order as so,client_master as cm,product_master as pm 
+where sod.order_no=so.order_no and so.client_no=cm.client_no and sod.product_no=pm.product_no and cm.client_no in ("C00001","C00002");
+
+
+------------------------------------------------------------------------------------------------------------------------
+
+-- 7)
+
+-- a)
+select product_no,descriptions from product_master 
+where product_no not in (select distinct product_no from sale_order_details);
+
+-- b)
+select name,address1,address1,city,pincode from client_master 
+where client_no = (select client_no from sale_order where order_no="O19001");
+
+-- c)
+select name from client_master 
+where client_no in (select distinct client_no from sale_order where order_date<'1996-05-01');
+
+-- d)
+select client_no,name from client_master 
+where client_no 
+in(select client_no from sale_order where order_no 
+ in (select order_no from sale_order_details where product_no 
+  in (select distinct product_no from product_master where descriptions="1.44 drive")));
+
+-- e)
+select client_no,name from client_master where client_no 
+in(select client_no from sale_order where order_no 
+ in (select distinct order_no from sale_order_details where product_rate>10000));
+
+-------------------------------------------------------------------------------------------------------------------------------------
+select concat(P.descriptions, ' Worth Rs ', sum(s.qty_disp * s.product_rate) , ' was sold')
+from product_master p,sale_order_details s 
+where p.product_no=s.product_no 
+group by p.descriptions;
+
+select concat(P.descriptions, ' Worth Rs ', sum(s.qty_disp * s.product_rate) , ' was ordered in the month of ',month(o.order_date))
+from product_master p,sale_order_details s,sale_order o 
+where p.product_no=s.product_no and s.Order_no=o.Order_no
+group by p.descriptions;
+
+
+select concat(c.Name, ' has placed order ', o.Order_no , ' on ',o.order_date)
+from client_master c,sale_order o 
+where o.Client_no=c.Client_No;
 
