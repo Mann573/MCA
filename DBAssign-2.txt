@@ -1,0 +1,169 @@
+create database bank;
+use bank; 
+create table deposit(
+	actno varchar(5),
+    cname varchar(18),
+    bname varchar(18),
+    amount numeric(8,2),
+    adate date);
+    
+create table borrow(
+	loanno varchar(5),
+    cname varchar(7),
+    bname varchar(18),
+    amount numeric(8,2));
+
+create table customer(
+	cname varchar(18),
+    city varchar(18));
+    
+create table branch(
+	bname varchar(18),
+    city varchar(18));
+
+insert into deposit values
+('100' ,'ANIL', 'VRCE', 1000, '1995-03-01'),
+('101', 'SUNIL', 'AJNI', 5000, '1998-01-04'),
+('102', 'MEHUL', 'KAROLBAGH', 3500, '1995-11-17'),
+('104', 'MADHURI', 'CHANDNI', 1200, '1995-12-17'),
+('105', 'PRAMOD', 'MGROAD', 3000, '1996-03-27'),
+('106', 'SANDIP', 'ANDHERI', 2000 ,'1996-03-31'),
+('107', 'SHIVANI', 'VIRAR', 1000, '1995-09-05'),
+('108', 'KRANTI', 'NEHRUPLACE', 5000, '1995-07-02'),
+('109', 'NAREN','POWAI', 7000, '1995-08-10');
+
+insert into borrow values
+('201', 'ANIL', 'VRCE', 1000),
+('206', 'MEHUL', 'AJNI', 5000),
+('311', 'SUNIL', 'DHARAMPETH', 3000),
+('321', 'MADHURI', 'ANDHERI', 2000),
+('375', 'PRAMOD', 'VIRAR', 8000),
+('481', 'KRANTI', 'NEHRUPLACE', 3000);
+
+insert into customer values
+('ANIL', 'CALCUTTA'),
+('SUNIL', 'DELHI'),
+('MEHUL' ,'BARODA'),
+('MANDAR' ,'PATNA'),
+('MADHURI' ,'NAGPUR'),
+('PRAMOD' ,'NAGPUR'),
+('SANDIP' ,'SURAT'),
+('SHIVANI' ,'BOMBAY'),
+('KRANTI' ,'BOMBAY'),
+('NAREN' ,'BOMBAY');
+
+insert into branch values
+('VRCE','NAGPUR'),
+('AJNI' ,'NAGPUR'),
+('KAROLBAGH', 'DELHI'),
+('CHANDNI' ,'DELHI'),
+('DHARAMPTEH', 'NAGPUR'),
+('MGROAD' ,'BANGALORE'),
+('ANDHERI' ,'BOMBAY'),
+('VIRAR' ,'BOMBAY'),
+('NEHRUPLACE' ,'DELHI'),
+('POWAI' ,'BOMBAY');
+drop table branch;
+
+-- 3)
+--  1
+select d.*,c.city,b.loanno,b.amount as 'borrow_amount' 
+from deposit d, customer c, borrow b 
+where d.cname='ANIL' and c.cname='ANIL' and b.cname='ANIL';
+
+-- 2
+select c.cname 
+from deposit d,customer c, branch bh
+where d.cname=c.cname and d.bname=bh.bname and bh.city='NAGPUR' and c.city='BOMBAY'; 
+
+-- 3
+select d.cname 
+from deposit d,customer c, branch bh
+where d.cname=c.cname and d.bname=bh.bname and bh.city=c.city;
+
+-- 4
+select c.cname 
+from deposit d,customer c, borrow b
+where d.cname=c.cname and b.cname=c.cname and c.city='NAGPUR';
+
+-- 5
+select d.cname 
+from deposit d,customer c, branch bh
+where d.cname=c.cname and d.bname=bh.bname and d.cname!='SUNIL' and bh.city= (select bh.city
+from deposit d,customer c, branch bh
+where d.cname=c.cname and d.bname=bh.bname and d.cname='SUNIL');
+
+-- 6 
+select d.cname 
+from deposit d,customer c
+where d.cname=c.cname and d.amount>2000 and c.city= (select city from customer where cname='ANIL');
+
+-- 7
+select cname from deposit where bname=(select bname from deposit where cname='SUNIL');
+
+ -- 8
+select bo.cname from borrow bo,deposit d 
+where bo.cname=d.cname and bo.amount > (select d.amount from deposit d where d.cname='PRAMOD');
+
+-- 9
+select c.cname from customer c where c.city= (select bh.city from deposit d, customer c,branch bh 
+where d.bname=bh.bname and d.cname=c.cname and d.cname='SUNIL');
+
+-- 10
+select bo.cname from borrow bo, deposit d where bo.amount > 2000 and d.amount > 1000 and bo.cname=d.cname;
+
+
+-- 11
+select bo.loanno,bo.amount as b_amount,d.actno,d.amount as d_amount from deposit d, borrow bo, customer c 
+where bo.cname=d.cname and d.cname=c.cname and c.city='NAGPUR';  
+
+-- 12
+select bo.loanno,bo.amount as b_amount,d.actno,d.amount as d_amount 
+from deposit d, borrow bo, customer c, branch bh 
+where bo.cname=d.cname and d.cname=c.cname and bh.bname=d.bname and bh.city='Bombay';
+
+-- 13
+select bo.loanno,bo.amount as b_amount,d.actno,d.amount as d_amount,bh.bname,bh.city as branch_ciy,c.city as cust_city 
+from deposit d, borrow bo, customer c, branch bh 
+where bo.cname=d.cname and d.cname=c.cname and bh.bname=d.bname and c.cname='PRAMOD';  
+
+-- 14
+select d.actno,d.cname,bo.loanno,d.amount as d_amount,bo.amount as b_amount,d.adate
+from deposit d,borrow bo,customer c 
+where d.cname=bo.cname and d.cname=c.cname and c.cname!='PRAMOD' and c.city=(select c.city from customer c where c.cname='PRAMOD');
+
+-- 15
+
+select d.cname from deposit d,customer c,branch bh
+where d.cname=c.cname and bh.bname=d.bname and c.city=(select c.city from customer c where c.cname='ANIL')
+and bh.city=(select bh.city
+from deposit d,customer c, branch bh
+where d.cname=c.cname and d.bname=bh.bname and d.cname='SUNIL');
+
+-- 16
+select d.cname 
+from deposit d, customer c 
+where d.cname=c.cname and d.amount > 5000 
+and c.city= (select c.city from customer c where c.cname='PRAMOD');
+
+-- 17
+select c.city,c.cname from customer c,branch bh,deposit d
+where c.cname=d.cname and d.bname=bh.bname and c.city=(select bh.city
+from deposit d,customer c, branch bh
+where d.cname=c.cname and d.bname=bh.bname and d.cname='PRAMOD');
+
+
+-- 18
+select bh.city as branch_city,c.city as living_city
+from deposit d,customer c, branch bh
+where d.cname=c.cname and d.bname=bh.bname and d.cname='PRAMOD';
+
+-- 19
+select bh.city as branch_city
+from deposit d,customer c, branch bh
+where d.cname=c.cname and d.bname=bh.bname and c.cname in ('SUNIL','ANIL');
+
+-- 20
+select c.city as living_city
+from customer c
+where c.cname in ('ASHOK','AJAY');
