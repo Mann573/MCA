@@ -1,0 +1,186 @@
+.. code:: ipython3
+
+    '''1. Write a Python function to find the maximum of three numbers.'''
+    
+def find_maximum(a, b, c):
+
+        max_number = a
+  # Assume a is the maximum
+
+    
+        # Compare a with b and c to find the maximum
+
+        if b > max_number:
+
+            max_number = b
+
+        if c > max_number:
+
+            max_number = c
+
+    
+        return max_number
+    
+    
+# Example usage:
+    num1 = 10
+    num2 = 25
+    num3 = 15
+
+    
+    maximum = find_maximum(num1, num2, num3)
+    print(f"The maximum of {num1}, {num2}, and {num3} is : {maximum}")
+
+
+.. parsed-literal::
+
+    The maximum of 10, 25, and 15 is : 25
+    
+
+.. code:: ipython3
+
+    '''2. Write a Python function to calculate the factorial of a number (a non-negative integer). The function accepts the number as an argument.'''
+    def factorial(n):
+        # Base case: Factorial of 0 is 1
+        if n == 0:
+            return 1
+        # Recursive case: Factorial of n is n times factorial of (n-1)
+        else:
+            return n * factorial(n - 1)
+    
+    # Example usage:
+    number = 5
+    result = factorial(number)
+    print(f"The factorial of {number} is {result}")
+    
+
+
+.. parsed-literal::
+
+    The factorial of 5 is 120
+    
+
+.. code:: ipython3
+
+    '''3. Write a Python function to check whether a number falls within a given range.'''
+    def is_within_range(number, minimum, maximum):
+        if minimum <= number <= maximum:
+            return True
+        else:
+            return False
+    
+    # Example usage:
+    num = 7
+    min_range = 1
+    max_range = 10
+    
+    if is_within_range(num, min_range, max_range):
+        print(f"{num} is within the range [{min_range}, {max_range}]")
+    else:
+        print(f"{num} is not within the range [{min_range}, {max_range}]")
+    
+
+.. code:: ipython3
+
+    '''4. Write a Python function that accepts a string and counts the number of upper and lower case letters.
+    Sample String: 'The quick Brow Fox'
+    Expected Output:
+    No. of Upper case characters: 3
+    No. of Lower case Characters : 12'''
+    def count_upper_lower_case(string):
+        upper_count = 0
+        lower_count = 0
+    
+        for char in string:
+            if char.isupper():
+                upper_count += 1
+            elif char.islower():
+                lower_count += 1
+    
+        return upper_count, lower_count
+    
+    # Example usage:
+    sample_string = 'The quick Brow Fox'
+    upper_count, lower_count = count_upper_lower_case(sample_string)
+    
+    print(f"No. of Upper case characters: {upper_count}")
+    print(f"No. of Lower case Characters: {lower_count}")
+
+
+.. parsed-literal::
+
+    No. of Upper case characters: 3
+    No. of Lower case Characters: 12
+    
+
+.. code:: ipython3
+
+    ''' 5. Write a Python function that takes a number as a parameter and checks whether the number is prime or not.
+    Note: A prime number (or a prime) is a natural number greater than 1 and that has no positive divisors other than 1 and itself.'''
+    def is_prime(number):
+        if number <= 1:
+            return False  # Numbers less than or equal to 1 are not prime
+    
+        for i in range(2, int(number**0.5) + 1):
+            if number % i == 0:
+                return False  # Found a divisor, not prime
+        return True  # No divisors found, prime
+    # Example usage:
+    num = 17  # Replace
+    
+    if is_prime(num):
+        print(f"{num} is a prime number.")
+    else:
+        print(f"{num} is not a prime number.")
+    
+
+
+.. parsed-literal::
+
+    17 is a prime number.
+    
+
+.. code:: ipython3
+
+    '''6. Write a Python function that checks whether a passed string is a palindrome or not.
+    Note: A palindrome is a word, phrase, or sequence that reads the same backward as forward, e.g., madam or nurses run or pop.'''
+    def is_palindrome(input_string):
+        # Remove spaces and convert to lowercase for case-insensitive comparison
+        input_string = input_string.replace(" ", "").lower()
+        
+        # Compare the string with its reverse
+        return input_string == input_string[::-1]
+    
+    # Example usage:
+    sample_string = "nurses run"  # Replace
+    if is_palindrome(sample_string):
+        print(f"'{sample_string}' is a palindrome.")
+    else:
+        print(f"'{sample_string}' is not a palindrome.")
+    
+
+.. code:: ipython3
+
+    '''7. Write a Python program to detect the number of local variables declared in a function.'''
+    def count_local_variables():
+        # Define some local variables
+        var1 = "Hello"
+        var2 = 42
+        var3 = [1, 2, 3]
+        
+        # Use the locals() function to access local variables
+        local_vars = locals()
+        
+        # Count the local variables (excluding function arguments)
+        count = sum(1 for var in local_vars if var != 'count_local_variables')
+        return count
+    
+    # Call the function to count local variables
+    num_local_vars = count_local_variables()
+    print(f"Number of local variables in the function: {num_local_vars}")
+
+
+.. parsed-literal::
+
+    Number of local variables in the function: 3
+    

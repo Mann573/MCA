@@ -1,0 +1,445 @@
+.. code:: ipython3
+
+    '''1. Write a recursive function that accepts two numbers as its argument and returns its power.'''
+    def power(base, exponent):
+        # Base case: if the exponent is 0, the result is 1
+        if exponent == 0:
+            return 1
+        # Recursive case: multiply base by power(base, exponent - 1)
+        else:
+            return base * power(base, exponent - 1)
+    # Example usage:
+    base = 2
+    exponent = 3
+    result = power(base, exponent)
+    print(f"{base} raised to the power of {exponent} is {result}")
+
+
+.. parsed-literal::
+
+    2 raised to the power of 3 is 8
+    
+
+.. code:: ipython3
+
+    ''' 2. Write a Python function to create and print a list where the values are the squares of numbers between 1 and 30 (both included).'''
+    
+    def generate_squares():
+        squares = [num ** 2 for num in range(1, 31)]
+        return squares
+    
+    squared_list = generate_squares()
+    print(squared_list)
+
+
+.. parsed-literal::
+
+    [1, 4, 9, 16, 25, 36, 49, 64, 81, 100, 121, 144, 169, 196, 225, 256, 289, 324, 361, 400, 441, 484, 529, 576, 625, 676, 729, 784, 841, 900]
+    
+
+.. code:: ipython3
+
+    '''1. Explore ‘time’ as well as ‘datetime’ module to perform the following tasks using time functions:
+            a. Print current date and time in Python'''
+    import datetime
+    
+    # Get the current date and time
+    current_datetime = datetime.datetime.now()
+    
+    # Print the current date and time
+    print("Current Date and Time:", current_datetime)
+    
+
+
+.. parsed-literal::
+
+    Current Date and Time: 2023-11-07 23:15:37.191216
+    
+
+.. code:: ipython3
+
+    '''1. Explore ‘time’ as well as ‘datetime’ module to perform the following tasks using time functions:
+            b. Write a Python program to subtract five days from the current date.
+    Sample Date:
+    Current Date: 2015-06-22
+    5 days before Current Date: 2015-06-17'''
+    import datetime
+    
+    # Get the current date
+    current_date = datetime.date.today()
+    
+    # Subtract five days
+    five_days_ago = current_date - datetime.timedelta(days=5)
+    
+    # Print the current date and the date five days ago
+    print("Current Date:", current_date)
+    print("5 days before Current Date:", five_days_ago)
+    
+
+
+.. parsed-literal::
+
+    Current Date: 2023-11-07
+    5 days before Current Date: 2023-11-02
+    
+
+.. code:: ipython3
+
+    '''1. Explore ‘time’ as well as ‘datetime’ module to perform the following tasks using time functions:
+           c. Calculate number of days between two given date'''
+    import datetime
+    
+    # Define two dates
+    date1 = datetime.date(2023, 6, 22)
+    date2 = datetime.date(2023, 6, 17)
+    
+    # Calculate the number of days between the two dates
+    days_difference = (date1 - date2).days
+    
+    # Print the result
+    print("Number of days between the two dates:", days_difference)
+
+
+.. parsed-literal::
+
+    Number of days between the two dates: 5
+    
+
+.. code:: ipython3
+
+    '''1.Explore ‘time’ as well as ‘datetime’ module to perform the following tasks using time functions:
+          d. Print current time in milliseconds.'''
+    import time
+    
+    # Get the current time in milliseconds
+    current_time_milliseconds = int(time.time() * 1000)
+    
+    # Print the current time in milliseconds
+    print("Current Time in Milliseconds:", current_time_milliseconds)
+
+
+.. parsed-literal::
+
+    Current Time in Milliseconds: 1699379115992
+    
+
+.. code:: ipython3
+
+    '''1.Explore ‘time’ as well as ‘datetime’ module to perform the following tasks using time functions:
+          e. Write a program to Halt the program execution for the time specified.'''
+    import time
+    
+    # Specify the time to pause the program in seconds
+    pause_time = 5  # Pause for 5 seconds
+    
+    # Halt the program for the specified time
+    print(f"Pausing the program for {pause_time} seconds...")
+    time.sleep(pause_time)
+    
+    # Program resumes after the specified time
+    print("Program has resumed.")
+    
+
+
+.. parsed-literal::
+
+    Pausing the program for 5 seconds...
+    Program has resumed.
+    
+
+.. code:: ipython3
+
+    '''4.Explore ‘math’ module to perform the following tasks using math functions:
+            a. Write a Python program to convert degrees to radians and vice-versa.''' 
+    import math
+    
+    # Convert degrees to radians
+    degrees = 45
+    radians = math.radians(degrees)
+    print(f"{degrees} degrees is equal to {radians} radians")
+    
+    # Convert radians to degrees
+    radians = math.pi / 4  # 45 degrees in radians
+    degrees = math.degrees(radians)
+    print(f"{radians} radians is equal to {degrees} degrees")
+    
+
+
+.. parsed-literal::
+
+    45 degrees is equal to 0.7853981633974483 radians
+    0.7853981633974483 radians is equal to 45.0 degrees
+    
+
+.. code:: ipython3
+
+    '''4.Explore ‘math’ module to perform the following tasks using math functions:
+            b. Write a Python program to calculate surface volume and area of a sphere.'''
+    import math
+    
+    def sphere_volume(radius):
+        volume = (4/3) * math.pi * radius**3
+        return volume
+    
+    def sphere_surface_area(radius):
+        area = 4 * math.pi * radius**2
+        return area
+    
+    # Input the radius of the sphere
+    radius = float(input("Enter the radius of the sphere: "))
+    
+    # Calculate and print the volume and surface area
+    volume = sphere_volume(radius)
+    area = sphere_surface_area(radius)
+    
+    print(f"Volume of the sphere: {volume:.2f}")
+    print(f"Surface area of the sphere: {area:.2f}")
+    
+
+
+.. parsed-literal::
+
+    Enter the radius of the sphere:  5
+    
+
+.. parsed-literal::
+
+    Volume of the sphere: 523.60
+    Surface area of the sphere: 314.16
+    
+
+.. code:: ipython3
+
+    '''4.Explore ‘math’ module to perform the following tasks using math functions:
+            c. Write a Python program to calculate the square roots of numbers between 1-100.'''
+    import math
+    # Calculate and print the square roots of numbers from 1 to 100
+    for num in range(1, 101):
+        square_root = math.sqrt(num)
+        print(f"The square root of {num} is {square_root}")
+    
+
+
+.. parsed-literal::
+
+    The square root of 1 is 1.0
+    The square root of 2 is 1.4142135623730951
+    The square root of 3 is 1.7320508075688772
+    The square root of 4 is 2.0
+    The square root of 5 is 2.23606797749979
+    The square root of 6 is 2.449489742783178
+    The square root of 7 is 2.6457513110645907
+    The square root of 8 is 2.8284271247461903
+    The square root of 9 is 3.0
+    The square root of 10 is 3.1622776601683795
+    The square root of 11 is 3.3166247903554
+    The square root of 12 is 3.4641016151377544
+    The square root of 13 is 3.605551275463989
+    The square root of 14 is 3.7416573867739413
+    The square root of 15 is 3.872983346207417
+    The square root of 16 is 4.0
+    The square root of 17 is 4.123105625617661
+    The square root of 18 is 4.242640687119285
+    The square root of 19 is 4.358898943540674
+    The square root of 20 is 4.47213595499958
+    The square root of 21 is 4.58257569495584
+    The square root of 22 is 4.69041575982343
+    The square root of 23 is 4.795831523312719
+    The square root of 24 is 4.898979485566356
+    The square root of 25 is 5.0
+    The square root of 26 is 5.0990195135927845
+    The square root of 27 is 5.196152422706632
+    The square root of 28 is 5.291502622129181
+    The square root of 29 is 5.385164807134504
+    The square root of 30 is 5.477225575051661
+    The square root of 31 is 5.5677643628300215
+    The square root of 32 is 5.656854249492381
+    The square root of 33 is 5.744562646538029
+    The square root of 34 is 5.830951894845301
+    The square root of 35 is 5.916079783099616
+    The square root of 36 is 6.0
+    The square root of 37 is 6.082762530298219
+    The square root of 38 is 6.164414002968976
+    The square root of 39 is 6.244997998398398
+    The square root of 40 is 6.324555320336759
+    The square root of 41 is 6.4031242374328485
+    The square root of 42 is 6.48074069840786
+    The square root of 43 is 6.557438524302
+    The square root of 44 is 6.6332495807108
+    The square root of 45 is 6.708203932499369
+    The square root of 46 is 6.782329983125268
+    The square root of 47 is 6.855654600401044
+    The square root of 48 is 6.928203230275509
+    The square root of 49 is 7.0
+    The square root of 50 is 7.0710678118654755
+    The square root of 51 is 7.14142842854285
+    The square root of 52 is 7.211102550927978
+    The square root of 53 is 7.280109889280518
+    The square root of 54 is 7.3484692283495345
+    The square root of 55 is 7.416198487095663
+    The square root of 56 is 7.483314773547883
+    The square root of 57 is 7.54983443527075
+    The square root of 58 is 7.615773105863909
+    The square root of 59 is 7.681145747868608
+    The square root of 60 is 7.745966692414834
+    The square root of 61 is 7.810249675906654
+    The square root of 62 is 7.874007874011811
+    The square root of 63 is 7.937253933193772
+    The square root of 64 is 8.0
+    The square root of 65 is 8.06225774829855
+    The square root of 66 is 8.12403840463596
+    The square root of 67 is 8.18535277187245
+    The square root of 68 is 8.246211251235321
+    The square root of 69 is 8.306623862918075
+    The square root of 70 is 8.366600265340756
+    The square root of 71 is 8.426149773176359
+    The square root of 72 is 8.48528137423857
+    The square root of 73 is 8.54400374531753
+    The square root of 74 is 8.602325267042627
+    The square root of 75 is 8.660254037844387
+    The square root of 76 is 8.717797887081348
+    The square root of 77 is 8.774964387392123
+    The square root of 78 is 8.831760866327848
+    The square root of 79 is 8.888194417315589
+    The square root of 80 is 8.94427190999916
+    The square root of 81 is 9.0
+    The square root of 82 is 9.055385138137417
+    The square root of 83 is 9.1104335791443
+    The square root of 84 is 9.16515138991168
+    The square root of 85 is 9.219544457292887
+    The square root of 86 is 9.273618495495704
+    The square root of 87 is 9.327379053088816
+    The square root of 88 is 9.38083151964686
+    The square root of 89 is 9.433981132056603
+    The square root of 90 is 9.486832980505138
+    The square root of 91 is 9.539392014169456
+    The square root of 92 is 9.591663046625438
+    The square root of 93 is 9.643650760992955
+    The square root of 94 is 9.695359714832659
+    The square root of 95 is 9.746794344808963
+    The square root of 96 is 9.797958971132712
+    The square root of 97 is 9.848857801796104
+    The square root of 98 is 9.899494936611665
+    The square root of 99 is 9.9498743710662
+    The square root of 100 is 10.0
+    
+
+.. code:: ipython3
+
+    ''' 5. Write a code to solve the equation z = |x − y| * (x + y).
+            a. Create an inner function to calculate the addition in the following way:
+            b. Create an outer function that will accept two parameters, a and b
+            c. Create an inner function inside an outer function that will calculate the addition of a and b'''
+    
+    def calculate_z(x, y):
+        def calculate_addition(a, b):
+            return a + b
+    
+        z = abs(x - y) * calculate_addition(x, y)
+        return z
+    
+    x_value = 10
+    y_value = 5
+    result = calculate_z(x_value, y_value)
+    print(f"z = |{x_value} - {y_value}| * ({x_value} + {y_value}) = {result}")
+
+
+.. parsed-literal::
+
+    z = |10 - 5| * (10 + 5) = 75
+    
+
+.. code:: ipython3
+
+    '''6. Assign a different name to function and call it through the new name.'''
+    
+    def original_function():
+        print("This is the original function.")
+    new_function_name = original_function
+    new_function_name()
+    
+
+
+.. parsed-literal::
+
+    This is the original function.
+    
+
+.. code:: ipython3
+
+    '''7. Generate a Python list of all the even numbers between 4 to 30.'''
+    
+    even_numbers = [num for num in range(4, 31) if num % 2 == 0]
+    print(even_numbers)
+
+.. code:: ipython3
+
+    '''8. Find the largest item from a given list.'''
+    
+    my_list = [10, 20, 30, 40, 50, 60, 70]
+    largest_item = max(my_list)
+    print("The largest item in the list is:", largest_item)
+    
+
+.. code:: ipython3
+
+    '''9. Concatenate two lists in the following order:
+    list1 = ["Hello ", "take "]
+    list2 = ["Dear", "Sir"]
+    Expected Output:
+    ['Hello Dear', 'Hello Sir', 'take Dear', 'take Sir']'''
+    
+    list1 = ["Hello ", "take "]
+    list2 = ["Dear", "Sir"]
+    result = [item1 + item2 for item1 in list1 for item2 in list2]
+    print(result)
+
+
+.. parsed-literal::
+
+    ['Hello Dear', 'Hello Sir', 'take Dear', 'take Sir']
+    
+
+.. code:: ipython3
+
+    '''10. Write a program to add item 7000 after 6000 in the following Python List
+    list1 = [10, 20, [300, 400, [5000, 6000], 500], 30, 40]'''
+    # Original list
+    list1 = [10, 20, [300, 400, [5000, 6000], 500], 30, 40]
+    
+    # Add item 7000 after 6000
+    item_to_add = 7000
+    
+    # Find the innermost list containing 6000 and extend it
+    for i, item in enumerate(list1):
+        if isinstance(item, list):
+            for j, subitem in enumerate(item):
+                if isinstance(subitem, list) and 6000 in subitem:
+                    subitem.insert(subitem.index(6000) + 1, item_to_add)
+    
+    # Print the modified list
+    print(list1)
+
+
+.. parsed-literal::
+
+    [10, 20, [300, 400, [5000, 6000, 7000], 500], 30, 40]
+    
+
+.. code:: ipython3
+
+    '''11. You have given a nested list. Write a program to extend it by adding the sublist ["h", "i", "j"] in such a way that it will look like the following list.
+    Expected Output:
+    ['a', 'b', ['c', ['d', 'e', ['f', 'g', 'h', 'i', 'j'], 'k'], 'l'], 'm', 'n']'''
+    
+    nested_list = ['a', 'b', ['c', ['d', 'e', ['f', 'g'], 'k'], 'l'], 'm', 'n']
+    sublist_to_add = ["h", "i", "j"]
+    nested_list[2][1][2].extend(sublist_to_add)
+    print(nested_list)
+    
+
+
+.. parsed-literal::
+
+    ['a', 'b', ['c', ['d', 'e', ['f', 'g', 'h', 'i', 'j'], 'k'], 'l'], 'm', 'n']
+    
