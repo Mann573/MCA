@@ -1,0 +1,621 @@
+1. Print the absolute value of –15.35
+select abs(-15.35);
+
+# abs(-15.35)
+15.35
+
+
+2. Calculate 3.25 raised to 2.25
+select pow(3.25,2.25);
+
+# pow(3.25,2.25)
+14.182002650430247
+
+
+3. Display the rounded value of 3.1417 upto 3 decimal places.
+select round(3.1417,3);
+
+# round(3.1417,3)
+3.142
+
+4. Display the truncated value of 3.1417 upto 3 decimal places.
+select truncate(3.1417,3);
+
+# truncate(3.1417,3)
+3.141
+
+
+5. Find the square root of 17 and –13 if possible.
+select sqrt(17), sqrt(-13) ;
+
+# sqrt(17)	        sqrt(-13)
+4.123105625617661
+
+6. Print the value of e to the 5th power
+select exp(5);
+
+# exp(5)
+148.4131591025766
+
+
+7. Print the ceil value and floor value of 15.72
+select ceil(15.72), floor(15.72);
+
+# ceil(15.72)	floor(15.72)
+16	15
+
+8. Find the value of 13 mod 5
+select mod(13,5);
+
+# mod(13,5)
+3
+
+9. Add 275 months to your date of birth and display it.
+select DATE_ADD("2023-07-05", INTERVAL 275 MONTH);
+
+# DATE_ADD("2023-07-05", INTERVAL 275 MONTH)
+2046-06-05
+
+10. Find the value sin of 100, and log 100 to the base 10
+select sin(100),log10(100);
+
+# sin(100)	          log10(100)
+-0.5063656411097588	  2
+
+-> Create a database of books :- (no, title, author, publication, price, edition)
+create database books;
+use books;
+
+create table book_master(
+	no int(1),
+    title varchar(50),
+    author varchar(25),
+    publication varchar(50),
+    price decimal(6,3),
+    edition varchar(20));
+
+# Field	    Type	        Null	Key	Default	Extra
+no	        int(1)	        YES			
+title	    varchar(50)	    YES			
+author	    varchar(30)	    YES			
+publication	varchar(50)	    YES			
+price	    decimal(6,3)	YES			
+edition	    varchar(20)	    YES					
+
+
+
+insert into book_master (no,title,author,publication,price,edition) values
+(1,'Mysql for professionals','Ivan bayross','spd', 400.5,'1st'),
+(2,'Database system concepts','korth','Mcgraw Hill', 950.00,'6th'),
+(3,'Database management systems','Raghu Ramakrishnan','Mcgraw hill', 570.20,'2nd'),
+(4,'Basics of mathematics','Dr. K. R. Kachot','Mahajan publishing house', 215.40,'1st'),
+(5,'Wings of fire','Dr. A. P. J. abdul kalam','Universities press private limited',381.00,'1st'),
+(6,'Five point someone','Chetan Bhagat','Rupa & co.',212.00,'1st'),
+(7,'C++ Prog.','Subhash KU','Pearson',350.00,'2nd');
+
+
+no	title	                    author	                 publication	                    price	edition
+1	Mysql for professionals	    Ivan bayross	         spd	                            400.500	1st
+2	Database system concepts	korth	                 Mcgraw Hill	                    950.000	6th
+3	Database management systems	Raghu Ramakrishnan	     Mcgraw hill	                    570.200	2nd
+4	Basics of mathematics	    Dr. K. R. Kachot	     Mahajan publishing house	        215.400	1st
+5	Wings of fire	            Dr. A. P. J. abdul kalam Universities press private limited	381.000	1st
+6	Five point someone	        Chetan Bhagat	         Rupa & co.	                        212.000	1st
+7	C++ Prog.	                Subhash KU	             Pearson	                        350.000	2nd
+
+
+11. List the names of author starting with capital letter.
+select author from book_master where binary substring(author,1,1) Between'A' and 'Z';
+
+# author
+Subhash KU
+Raghu Ramakrishnan
+Ivan bayross
+Dr. K. R. Kachot
+Dr. A. P. J. abdul kalam
+Chetan Bhagat
+
+
+12. Display the name of book in both lower and upper case using a single query.
+select upper(author),lower(author) from book_master;
+
+# upper(author)	lower(author)
+IVAN BAYROSS	ivan bayross
+KORTH	korth
+RAGHU RAMAKRISHNAN	raghu ramakrishnan
+DR. K. R. KACHOT	dr. k. r. kachot
+DR. A. P. J. ABDUL KALAM	dr. a. p. j. abdul kalam
+CHETAN BHAGAT	chetan bhagat
+SUBHASH KU	subhash ku
+
+
+13. Display the output : ‘BAD’ using CHR function.
+select cast(concat(char(ascii('B')),char(ascii('A')),char(ascii('D'))) as char)as output;
+
+# output
+BAD
+
+
+
+14. Display the price of books in the following format : ****450
+select concat('****',right(price,3)) from book_master;
+
+# concat('****',right(price,3))
+****500
+****000
+****200
+****400
+****000
+****000
+****000
+
+15. Display the price of books in the following format : 450*/*/
+select concat(left(price,3),'*/*/') from book_master;
+
+# concat(left(price,3),'*/*/')
+400*/*/
+950*/*/
+570*/*/
+215*/*/
+381*/*/
+212*/*/
+350*/*/
+
+16. Display the publication of PHI as Pearson.
+select replace(publication,'spd','Pearson') from book_master;
+
+# replace(publication,'spd','Pearson')
+Pearson
+Mcgraw Hill
+Mcgraw hill
+Mahajan publishing house
+Universities press private limited
+Rupa & co.
+Pearson
+
+17. Display the title of books and trim the ending part if it ends with prog.
+select case when right(title,5)='Prog.' then trim(trailing 'Prog.' from title) else title end from book_master;
+
+# case when right(title,5)='Prog.' then trim(trailing 'Prog.' from title) else title end
+Mysql for professionals
+Database system concepts
+Database management systems
+Basics of mathematics
+Wings of fire
+Five point someone
+C++ 
+
+
+18. Display the titles of books which contains ‘++’ in it.
+select title from book_master where  title like '%++%';
+
+# title
+C++ Prog.
+
+
+19. Modify the column size of author.
+Alter table book_master modify author varchar(30);
+desc book_master;
+
+# Field	Type	Null	     Key	Default	Extra
+no	            int(1)	     YES			
+title	        varchar(50)	 YES			
+author	        varchar(30)	 YES			
+publication	    varchar(50)	 YES			
+price	        decimal(6,3) YES			
+edition	        varchar(20)	 YES			
+
+20. Add a new column author2 to the table.
+Alter table book_master add column author2 varchar(30);
+desc book_master;
+
+# Field	    Type	        Null	Key	Default	Extra
+no	        int(1)	        YES			
+title	    varchar(50)	    YES			
+author	    varchar(30)	    YES			
+publication	varchar(50)	    YES			
+price	    decimal(6,3)	YES			
+edition	    varchar(20)	    YES			
+author2	    varchar(30)	    YES			
+
+
+-> Create a table stud_marks which contains (no, fname, lname, m1, m2, m3, dob)
+
+create table stud_marks(
+	no int(2),
+    fname varchar(25),
+    lname varchar(25),
+    m1 int(3),
+    m2 int(3),
+    m3 int(3),
+    dob date);
+
+# Field	Type	    Null	Key	Default	Extra
+no	    int(2)	    YES			
+fname	varchar(25)	YES			
+lname	varchar(25)	YES			
+m1	    int(3)	    YES			
+m2	    int(3)	    YES			
+m3	    int(3)	    YES			
+dob	    date	    YES			
+
+    
+1. m1,m2,m3 :- marks of 3 subjects, Enter atleast 10 values in this table
+
+insert into stud_marks values
+('1','Mann','Shah',82,45,66,'2000-08-03'),
+('23','Parthiv','Soni',92,75,69,'2001-03-01'),
+('18','Hit','Shah',51,72,88,'2001-01-31'),
+('50','Shruti','Raval',42,76,57,'2002-11-21'),
+('45','Jeel','Upadhyay',23,57,40,'2001-10-06'),
+('3','Jatin','Solanki',20,50,38,'2002-02-10'),
+('17','Mohit','Parmar',77,82,92,'2001-08-03'),
+('39','Gautam','Chauhan',19,29,10,'2000-02-15'),
+('11','Chirag','Dudhrejia',50,60,93,'2001-06-11'),
+('19','Shubham','Mishra',78,88,83,'2001-07-25'),
+('20','Sanjay','Manjrekar',55,41,30,'2001-05-29');
+
+insert into stud_marks (no,fname,lname,m1,m2,dob) values (22,'Bhupendra','Jogi',42,76,'2001-09-11');
+insert into stud_marks (no,fname,lname,m1,m3,dob) values (41,'Neel','Soni',42,39,'2002-10-01');
+
+
+# no	fname	    lname	    m1	m2	m3	dob
+1	    Mann	    Shah	    82	45	66	2000-08-03
+23	    Parthiv	    Soni	    92	75	69	2001-03-01
+18	    Hit	        Shah	    51	72	88	2001-01-31
+50	    Shruti	    Raval	    42	76	57	2002-11-21
+45	    Jeel	    Upadhyay	23	57	40	2001-10-06
+3	    Jatin	    Solanki	    20	50	38	2002-02-10
+17	    Mohit	    Parmar	    77	82	92	2001-08-03
+39	    Gautam	    Chauhan	    19	29	10	2000-02-15
+11	    Chirag	    Dudhrejia	50	60	93	2001-06-11
+19	    Shubham	    Mishra	    78	88	83	2001-07-25
+20	    Sanjay	    Manjrekar	55	41	30	2001-05-29
+22	    Bhupendra	Jogi	    42	76		2001-09-11
+41	    Neel	    Soni	    42		39	2002-10-01
+
+
+
+2. Display the details in following order :- RollNo. Lname, Fname
+select no,lname,fname from stud_marks;
+
+# no	lname	    fname
+1	    Shah	    Mann
+23	    Soni	    Parthiv
+18	    Shah	    Hit
+50	    Raval	    Shruti
+45	    Upadhyay	Jeel
+3	    Solanki	    Jatin
+17	    Parmar	    Mohit
+39	    Chauhan	    Gautam
+11	    Dudhrejia	Chirag
+19	    Mishra	    Shubham
+20	    Manjrekar	Sanjay
+22	    Jogi	    Bhupendra
+41	    Soni	    Neel
+
+3. Find the current age of each student.
+select no,fname,lname,dob,round(datediff(current_date(),dob)/365) as age from stud_marks;
+
+# no	fname	    lname	    dob	        age
+1	    Mann	    Shah	    2000-08-03	23
+23	    Parthiv	    Soni	    2001-03-01	23
+18	    Hit	        Shah	    2001-01-31	23
+50	    Shruti	    Raval	    2002-11-21	21
+45	    Jeel	    Upadhyay	2001-10-06	22
+3	    Jatin	    Solanki	    2002-02-10	22
+17	    Mohit	    Parmar	    2001-08-03	22
+39	    Gautam	    Chauhan	    2000-02-15	24
+11	    Chirag	    Dudhrejia	2001-06-11	23
+19	    Shubham	    Mishra	    2001-07-25	22
+20	    Sanjay	    Manjrekar	2001-05-29	23
+22	    Bhupendra	Jogi	    2001-09-11	22
+41	    Neel	    Soni	    2002-10-01	21
+
+
+4. Display the total marks of each student along with the rollno
+select no,m1+m2+m3 as total from stud_marks;
+
+# no	total
+1	    193
+23	    236
+18	    211
+50	    175
+45	    120
+3	    108
+17	    251
+39	    58
+11	    203
+19	    249
+20	    126
+22	
+41	
+
+
+5. Display the percentage of each student
+select round((m1+m2+m3)/3,2) as Percentage from stud_marks;
+
+# no	fname	    lname	    m1	m2	m3	dob	        total
+1	    Mann	    Shah	    40	45	66	2000-08-03	151
+23	    Parthiv	    Soni    	40	75	69	2001-03-01	184
+18	    Hit	        Shah	    40	72	88	2001-01-31	200
+50	    Shruti	    Raval	    40	76	57	2002-11-21	173
+45	    Jeel	    Upadhyay	23	57	40	2001-10-06	120
+3	    Jatin	    Solanki	    20	50	38	2002-02-10	108
+17	    Mohit	    Parmar	    40	82	92	2001-08-03	214
+39	    Gautam	    Chauhan	    19	29	10	2000-02-15	58
+11	    Chirag	    Dudhrejia	40	60	93	2001-06-11	193
+19	    Shubham	    Mishra	    40	88	83	2001-07-25	211
+20	    Sanjay	    Manjrekar	55	41	30	2001-05-29	126
+22	    Bhupendra	Jogi	    42	76		2001-09-11	
+41	    Neel	    Soni	    42		39	2002-10-01	
+
+
+6. Display the students scoring highest marks in each subject.
+select no 
+from stud_marks 
+where m1=(select max(m1) from stud_marks) or m2=(select max(m2) from stud_marks) or m3=(select max(m3) from stud_marks);
+
+# no	fname	lname	    m1	m2	m3	dob
+11	    Chirag	Dudhrejia	40	60	93	2001-06-11
+19	    Shubham	Mishra	    40	88	83	2001-07-25
+20	    Sanjay	Manjrekar	55	41	30	2001-05-29
+
+
+7. Display the students scoring highest total marks
+select *,m1+m2+m3 as total from stud_marks where m1+m2+m3=(select max(m1+m2+m3) from stud_marks);
+
+# no	fname	lname	m1	m2	m3	dob	        total
+17	    Mohit	Parmar	77	82	92	2001-08-03	251
+
+8. Display the students whose name starts with ‘S’.
+select * from stud_marks where fname like 'S%';
+
+# no	fname	lname	    m1	m2	m3	dob
+50	    Shruti	Raval	    42	76	57	2002-11-21
+19	    Shubham	Mishra	    78	88	83	2001-07-25
+20	    Sanjay	Manjrekar	55	41	30	2001-05-29
+
+9. Display the students whose surname ends with ‘kar’
+select * from stud_marks where lname like '%kar';
+
+# no	fname	lname	    m1	m2	m3	dob
+20	    Sanjay	Manjrekar	55	41	30	2001-05-29
+
+10. List all the students who fails in any one of the subjects.
+select *,round((m1+m2+m3)/3,2) as Percentage 
+from stud_marks 
+where m1 < 33 or m2 < 33 or m3 < 33;
+
+# no	fname	lname	    m1	m2	m3	dob	        Percentage
+45	    Jeel	Upadhyay	23	57	40	2001-10-06	40.00
+3	    Jatin	Solanki	    20	50	38	2002-02-10	36.00
+39	    Gautam	Chauhan	    19	29	10	2000-02-15	19.33
+20	    Sanjay	Manjrekar	55	41	30	2001-05-29	42.00
+
+11. List all the students who are passing in all subjects but the percentage < 60
+select *,round((m1+m2+m3)/3,2) as Percentage 
+from stud_marks 
+where m1 > 33 and m2 > 33 and m3 > 33 and (m1+m2+m3)/3 < 60;
+
+# no	fname	lname	m1	m2	m3	dob	        Percentage
+50	    Shruti	Raval	42	76	57	2002-11-21	58.33
+
+12. List the students whose total marks are between 50 and 60
+select *,m1+m2+m3 as total from stud_marks where m1+m2+m3 between 50 and 60;
+
+# no	fname	lname	m1	m2	m3	dob	        total
+39	    Gautam	Chauhan	19	29	10	2000-02-15	58
+
+
+13. List all the students whose name does not start with ‘S’
+select * from stud_marks where fname not like 'S%';
+
+# no	fname	    lname	    m1	m2	m3	dob
+1	    Mann	    Shah	    82	45	66	2000-08-03
+23	    Parthiv	    Soni	    92	75	69	2001-03-01
+18	    Hit	        Shah	    51	72	88	2001-01-31
+45	    Jeel	    Upadhyay	23	57	40	2001-10-06
+3	    Jatin	    Solanki	    20	50	38	2002-02-10
+17	    Mohit	    Parmar	    77	82	92	2001-08-03
+39	    Gautam	    Chauhan	    19	29	10	2000-02-15
+11	    Chirag	    Dudhrejia	50	60	93	2001-06-11
+22	    Bhupendra	Jogi	    42	76		2001-09-11
+41	    Neel	    Soni	    42		39	2002-10-01
+
+14. Update the table, set marks m1=40 for those students who scored a total of atleast 100 marks in m2 and m5
+update stud_marks set m1 = 40 where m2+m3 >= 100;
+select * from stud_marks;
+
+# no	fname	    lname	    m1	m2	m3	dob
+1	    Mann	    Shah	    40	45	66	2000-08-03
+23	    Parthiv	    Soni	    40	75	69	2001-03-01
+18	    Hit	        Shah	    40	72	88	2001-01-31
+50	    Shruti	    Raval	    40	76	57	2002-11-21
+45	    Jeel	    Upadhyay	23	57	40	2001-10-06
+3	    Jatin	    Solanki	    20	50	38	2002-02-10
+17	    Mohit	    Parmar	    40	82	92	2001-08-03
+39	    Gautam	    Chauhan	    19	29	10	2000-02-15
+11	    Chirag	    Dudhrejia	40	60	93	2001-06-11
+19	    Shubham	    Mishra	    40	88	83	2001-07-25
+20	    Sanjay	    Manjrekar	55	41	30	2001-05-29
+22	    Bhupendra	Jogi	    42	76		2001-09-11
+41	    Neel	    Soni	    42		39	2002-10-01
+
+
+15. Display the students whose marks are either 50, 60 or 70.
+select * from stud_marks where m1 in (50,60,70) or m2 in (50,60,70) or m3 in (50,60,70);
+
+# no	fname	lname	  m1	m2	m3	dob
+3	    Jatin	Solanki	  20	50	38	2002-02-10
+11	    Chirag	Dudhrejia 40	60	93	2001-06-11
+
+16. List all the students born in the month of January.
+select * from stud_marks where month(dob)=1;
+
+# no	fname	lname	m1	m2	m3	dob
+18	    Hit	    Shah	40	72	88	2001-01-31
+
+17. List all the students whose date of birth is even no.
+select * from stud_marks where (day(dob)%2)=0;
+
+# no	fname	lname	    m1	m2	m3	dob
+45	    Jeel	Upadhyay	23	57	40	2001-10-06
+3	    Jatin	Solanki	    20	50	38	2002-02-10
+
+18. Find the age of students in terms of months passed
+select no,dob,timestampdiff(month,dob,current_date()) as month_passed from stud_marks;
+
+# no	dob	        month_passed
+1	    2000-08-03	280
+23	    2001-03-01	273
+18	    2001-01-31	274
+50	    2002-11-21	253
+45	    2001-10-06	266
+3	    2002-02-10	262
+17	    2001-08-03	268
+39	    2000-02-15	286
+11	    2001-06-11	270
+19	    2001-07-25	269
+20	    2001-05-29	271
+22	    2001-09-11	267
+41	    2002-10-01	254
+
+19. Display the students whose date of birth falls in the first quarter of the year
+select * from stud_marks where month(dob) between 1 and 3;
+
+# no	fname	lname	m1	m2	m3	dob
+23	    Parthiv	Soni	40	75	69	2001-03-01
+18	    Hit	    Shah	40	72	88	2001-01-31
+3	    Jatin	Solanki	20	50	38	2002-02-10
+39	    Gautam	Chauhan	19	29	10	2000-02-15
+
+20. Find the date, 15 days after today’s date.
+select date_add(current_date(),INTERVAL 10 DAY);
+
+# date_add(current_date(),INTERVAL 10 DAY)
+2024-01-08
+
+21. List the students whose name contains vowels (small)
+select fname from stud_marks 
+where fname like '%a%' or fname like '%e%' or fname like '%i%' or fname like '%o%' or fname like '%u%'; 
+
+# fname
+Mann
+Parthiv
+Hit
+Shruti
+Jeel
+Jatin
+Mohit
+Gautam
+Chirag
+Shubham
+Sanjay
+Bhupendra
+Neel
+
+
+22. List the students whose name does not contain vowels
+select fname from stud_marks 
+where fname not like '%a%' and fname not like '%e%' and fname not like '%i%' and fname not like '%o%' and fname not like '%u%';
+
+# fname
+
+23. Count the no. of students whose name starts with ‘S’
+select count(no) from stud_marks where fname like 'S%';
+
+# count(no)
+3
+
+
+24. Count the no. of students whose name ends with ‘kar’
+select count(no) from stud_marks where lname like '%kar';
+
+# count(no)
+1
+
+
+25. Display the names of student in following format Eg. If name is ‘hardik’ & surname is ‘joshi’ then display ‘harshi’
+select no,concat(substring(fname,1,3),right(lname,3)) from stud_marks;
+
+# no	concat(substring(fname,1,3),right(lname,3))
+1	    Manhah
+23	    Paroni
+18	    Hithah
+50	    Shrval
+45	    Jeeyay
+3	    Jatnki
+17	    Mohmar
+39	    Gauhan
+11	    Chijia
+19	    Shuhra
+20	    Sankar
+22	    Bhuogi
+41	    Neeoni
+
+26. Display the rows which contains null values in m1, m2 or m3
+select *
+from stud_marks 
+where m1 is null or m2 is null or m3 is null;
+
+# no	fname	    lname	m1	m2	m3	dob
+22	    Bhupendra	Jogi	42	76		2001-09-11
+41	    Neel	    Soni	42		39	2002-10-01
+
+27. Display the rows which does not contain null values in name
+select * from stud_marks where fname is not null;
+
+# no	fname	    lname	    m1	m2	m3	dob
+1	    Mann	    Shah	    40	45	66	2000-08-03
+23	    Parthiv	    Soni	    40	75	69	2001-03-01
+18	    Hit	        Shah	    40	72	88	2001-01-31
+50	    Shruti	    Raval	    40	76	57	2002-11-21
+45	    Jeel	    Upadhyay	23	57	40	2001-10-06
+3	    Jatin	    Solanki	    20	50	38	2002-02-10
+17	    Mohit	    Parmar	    40	82	92	2001-08-03
+39	    Gautam	    Chauhan	    19	29	10	2000-02-15
+11	    Chirag	    Dudhrejia	40	60	93	2001-06-11
+19	    Shubham	    Mishra	    40	88	83	2001-07-25
+20	    Sanjay	    Manjrekar	55	41	30	2001-05-29
+22	    Bhupendra	Jogi	    42	76		2001-09-11
+41	    Neel	    Soni	    42		39	2002-10-01
+
+28. Display the rows where name sounds like ‘sachin’ (use soundex function)
+select *,soundex(lname),soundex("Shah")
+from stud_marks
+where soundex(lname) = soundex("Shah");
+
+# no	fname	lname	m1	m2	m3	dob	        soundex(lname)	soundex("Shah")
+1	    Mann	Shah	40	45	66	2000-08-03	S000	S000
+18	    Hit	    Shah	40	72	88	2001-01-31	S000	S000
+
+
+29. Generate a random no. using date
+select floor(rand() * 1000) + unix_timestamp(curdate()) as random_number;
+
+# random_number
+1703788533
+
+
+30. Display the output in following form :- <Name was born on Day> Eg. Hardik was born on Thursday.
+select concat(fname, ' was born on ', date_format(dob,"%W")) from stud_marks;
+
+# concat(fname, ' was born on ', date_format(dob,"%W"))
+Mann was born on Thursday
+Parthiv was born on Thursday
+Hit was born on Wednesday
+Shruti was born on Thursday
+Jeel was born on Saturday
+Jatin was born on Sunday
+Mohit was born on Friday
+Gautam was born on Tuesday
+Chirag was born on Monday
+Shubham was born on Wednesday
+Sanjay was born on Tuesday
+Bhupendra was born on Tuesday
+Neel was born on Tuesday
+
+
+
+
