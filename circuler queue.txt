@@ -1,0 +1,222 @@
+Name 	    :  Gelot Krunal N.
+Roll No.    :  14
+Subject     :  Data Structure
+Course      :  Masters in Computer Application
+
+======================================================================================================
+Q. Circuler Queue
+======================================================================================================
+
+#include <stdio.h>
+# define MAX 5
+void insert();
+void delete();
+void show();
+int queue[MAX];
+int rear = - 1;
+int front = - 1;
+void main()
+{
+    int choice;
+    do
+    {
+        printf("\n\nPerform operations on the Queue :\n");
+        printf("1.insert Operation\n");
+        printf("2.delete Operation\n");
+        printf("3.Display the Queue\n");
+        printf("4.Exit\n");
+        printf("Enter your choice of operations : ");
+        scanf("%d", &choice);
+        switch(choice)
+        {
+            case 1:
+                insert();
+                break;
+            case 2:
+                delete();
+                break;
+            case 3:
+                show();
+                break;
+            case 4:
+                break;
+            default:
+                printf("\nInvalid Choice!! \n");
+        } 
+    } while (choice != 4);
+    printf("\n--------> Exit <--------");
+} 
+ 
+void insert()
+{
+    int x;
+    if ((front == 0 && rear == MAX - 1) || rear == front -1)
+    {
+        printf("Overflow \n");
+        return;
+    }
+    else if (front == -1 && rear == -1)
+    {
+        front = rear = 0;
+        printf("\nElement to be inserted in the Queue : ");
+        scanf("%d", &x);
+        queue[rear] = x;
+    }
+    else if(rear == MAX -1 && front != 0)
+    {
+        rear = 0;
+        printf("\nElement to be inserted in the Queue : ");
+        scanf("%d", &x);
+        queue[rear] = x;
+    }
+    else
+    {
+        printf("\nElement to be inserted in the Queue : ");
+        scanf("%d", &x);
+        rear = rear + 1;
+        queue[rear] = x;
+    }
+} 
+ 
+void delete()
+{
+    if (front == - 1 )
+    {
+        printf("Underflow \n");
+        return;
+    }
+    else if(front == rear)
+    {
+        printf("Element deleted from the Queue: %d\n", queue[front]);
+        front = rear = -1;
+    }
+    else
+    {
+        printf("Element deleted from the Queue: %d\n", queue[front]);
+        if(front == MAX -1)
+        {
+            front = 0;
+        }
+        else
+        {
+            front = front + 1;
+        }
+    }
+} 
+ 
+void show()
+{
+    int i=front;  
+    if(front==-1 && rear==-1)  
+    {  
+        printf("\n Queue is empty..");  
+    }  
+    else  
+    {  
+        printf("\nElements in a Queue are :");  
+        do
+        {  
+            printf("\t %d", queue[i]); 
+            if(i == rear)
+            {
+                break;
+            }
+            i=(i+1); 
+            if(i == MAX)
+            {
+                i = 0;
+            }
+            
+        }  while(i < MAX);
+    }  
+}
+
+
+-------------------------------------------------------------------------------------------------------
+Output : 
+-------------------------------------------------------------------------------------------------------
+
+Perform operations on the Queue :
+1.insert Operation
+2.delete Operation
+3.Display the Queue
+4.Exit
+Enter your choice of operations : 1
+Element to be inserted in the Queue : 1
+Perform operations on the Queue :
+1.insert Operation
+2.delete Operation
+3.Display the Queue
+4.Exit
+Enter your choice of operations : 1
+Element to be inserted in the Queue : 2
+Perform operations on the Queue :
+1.insert Operation
+2.delete Operation
+3.Display the Queue
+4.Exit
+Enter your choice of operations : 1
+Element to be inserted in the Queue : 3
+Perform operations on the Queue :
+1.insert Operation
+2.delete Operation
+3.Display the Queue
+4.Exit
+Enter your choice of operations : 1
+Element to be inserted in the Queue : 4
+Perform operations on the Queue :
+1.insert Operation
+2.delete Operation
+3.Display the Queue
+4.Exit
+Enter your choice of operations : 1
+Element to be inserted in the Queue : 5
+Perform operations on the Queue :
+1.insert Operation
+2.delete Operation
+3.Display the Queue
+4.Exit
+Enter your choice of operations : 1
+Overflow 
+
+
+Perform operations on the Queue :
+1.insert Operation
+2.delete Operation
+3.Display the Queue
+4.Exit
+Enter your choice of operations : 2
+Element deleted from the Queue: 1
+
+
+Perform operations on the Queue :
+1.insert Operation
+2.delete Operation
+3.Display the Queue
+4.Exit
+Enter your choice of operations : 2
+Element deleted from the Queue: 2
+
+
+Perform operations on the Queue :
+1.insert Operation
+2.delete Operation
+3.Display the Queue
+4.Exit
+Enter your choice of operations : 1
+Element to be inserted in the Queue : 6
+Perform operations on the Queue :
+1.insert Operation
+2.delete Operation
+3.Display the Queue
+4.Exit
+Enter your choice of operations : 3
+Elements in a Queue are :	 3	 4	 5	 6
+
+Perform operations on the Queue :
+1.insert Operation
+2.delete Operation
+3.Display the Queue
+4.Exit
+Enter your choice of operations : 4
+--------> Exit <--------

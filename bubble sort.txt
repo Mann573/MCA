@@ -1,0 +1,61 @@
+Name 	    :  Gelot Krunal N.
+Roll No.    :  14
+Subject     :  Data Structure
+Course      :  Masters in Computer Application
+
+======================================================================================================
+Q. Bubble Sort
+======================================================================================================
+
+#include <stdio.h>
+void main() 
+{
+    int n=0,last,i,t,change;
+    int a[20];
+    printf("how many elements want to add you?(max=20) :- ");
+    scanf("%d",&n);
+    printf("\nEnter Elements:\n ");
+    last = n;
+    for(i=0;i<n;i++)
+    {
+        scanf("%d",&a[i]);    
+    }
+    do
+    {
+        change = 0;
+        for(i=0;i<last-1;i++)
+        {
+            if(a[i]>a[i+1])
+            {
+                t = a[i];
+                a[i] = a[i+1];
+                a[i+1] = t;
+                change++;
+            }
+        }
+        last--;
+    }while(change != 0);
+     printf("\nSorted Array: ");
+     for(i=0;i<n;i++)
+    {
+        printf("\t %d",a[i]);    
+    }
+}
+
+-------------------------------------------------------------------------------------------------------
+Output : 
+-------------------------------------------------------------------------------------------------------
+
+how many elements want to add you?(max=20) :- 10
+Enter Elements:
+ 44
+ 55
+ 22
+ 11
+ 33
+ 99
+ 43
+ 21
+ 89
+ 43
+ Sorted Array: 	 11	 21	 22	 33	 43	 43	 44	 55	 89	 99

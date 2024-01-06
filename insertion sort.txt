@@ -1,0 +1,53 @@
+Name 	    :  Gelot Krunal N.
+Roll No.    :  14
+Subject     :  Data Structure
+Course      :  Masters in Computer Application
+
+======================================================================================================
+Q. Insertion Sort
+======================================================================================================
+
+#include <stdio.h>
+void main() 
+{
+    int n,i,t,j;
+    int a[20];
+    printf("how many elements want to add you?(max=20) :- ");
+    scanf("%d",&n);
+    printf("\nEnter Elements:\n ");
+    for(i=0;i<n;i++)
+    {
+        scanf("%d",&a[i]);    
+    }
+    for(i=1;i<n;i++)
+    {
+        t = a[i];
+        j = i-1;
+        while(t<a[j])
+        {
+            a[j+1] = a[j];
+            j = j-1;
+        }
+        a[j+1] = t;
+    }
+     printf("\nSorted Array: ");
+     for(i=0;i<n;i++)
+    {
+        printf("\t %d",a[i]);    
+    }
+}
+
+-------------------------------------------------------------------------------------------------------
+Output : 
+-------------------------------------------------------------------------------------------------------
+
+how many elements want to add you?(max=20) :- 7
+Enter Elements:
+ 55
+ 27
+ 58
+ 18
+ 35
+ 31
+ 19
+ Sorted Array: 	 18	 19	 27	 31	 35	 55	 58
