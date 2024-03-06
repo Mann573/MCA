@@ -1,0 +1,457 @@
+NAME:YASH SHAH
+ROLL NO:MCA138
+SUBJECT:OPERATING SYSTEM
+COURSE:MCA1
+DATE:07-03-24
+----------------------------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------------------------
+1.write a shell script to generate prime number from 1 to n, where n any
+positive integer number by user.
+----------------------------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------------------------
+CODE:
+echo "Enter any positive number"
+read n
+i=2
+echo -ne "Prime numbers are "
+while [ $i -lt $n ]
+do
+        j=2
+        f=0
+        while [ $j -lt $i ]
+        do
+                if [ `expr $i % $j ` -eq 0 ]
+                then
+                        f=1
+                fi
+                j=` expr $j + 1 `
+        done
+        if [ $f -eq 0 ]
+        then
+                echo -ne "$i    "
+        fi
+        i=` expr $i + 1`
+done
+echo ""
+----------------------------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------------------------
+OUTPUT:
+[mca2338@agni yash]$ sh prime.sh
+Enter any positive number
+100
+Prime numbers are 2    3    5    7    11    13    17    19    23    29    31    37    41    43    47    53    59    61    67    71    73    79    83    89    97  
+----------------------------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------------------------
+2.Write a script to reverse a six-digit number.
+
+----------------------------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------------------------
+CODE:
+echo "Enter six digit number"
+read n
+rn=0
+while [ $n -gt 0 ]
+do
+        rem=` expr $n % 10 `
+        rn=` expr $rn \* 10 + $rem `
+        n=` expr $n / 10`
+        # echo $rn
+done
+
+echo "reverse number is $rn"
+----------------------------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------------------------
+OUTPUT:
+Enter six digit number
+100001
+reverse number is 100001
+----------------------------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------------------------
+3.Write a menu driven shell script for storing employee information (like add,
+modify, delete, display info).
+----------------------------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------------------------
+
+CODE:
+insert_employee() {
+    echo "Enter the Employee No:"
+    read empno
+    echo "Enter the Employee Name:"
+    read empname
+    echo "Enter the Employee Designation:"
+    read desig
+    echo "Enter the Employee Salary:"
+    read sal
+    echo "$empno:$empname:$desig:$sal" >> employees.txt
+    echo "Record inserted successfully!"
+}
+
+modify_employee() {
+    echo "Enter the Employee No to modify:"
+    read empnom
+    echo "Enter the new Employee Name:"
+    read new_empname
+    echo "Enter the new Employee Designation:"
+    read new_desig
+    echo "Enter the new Employee Salary:"
+    read new_sal
+
+    
+    tmp_file=$(mktemp)
+    while IFS=: read -r empno empname desig sal; do
+        if [ "$empno" = "$empnom" ]; then
+            echo "$empnom:$new_empname:$new_desig:$new_sal" >> "$tmp_file"
+        else
+            echo "$empno:$empname:$desig:$sal" >> "$tmp_file"
+        fi
+    done < employees.txt
+    mv "$tmp_file" employees.txt
+    echo "Record modified successfully!"
+}
+
+
+delete_employee() {
+    echo "Enter the Employee No to delete:"
+    read empnod
+    # Create a temporary file for modifications
+    tmp_file=$(mktemp)
+    while IFS=: read -r empno empname desig sal; do
+        if [ "$empno" != "$empnod" ]; then
+            echo "$empno:$empname:$desig:$sal" >> "$tmp_file"
+        fi
+    done < employees.txt
+    mv "$tmp_file" employees.txt
+    echo "Record deleted successfully!"
+}
+
+
+display_employees() {
+    echo "Employee No  Employee Name  Designation  Salary"
+    echo "----------------------------------------------"
+    while IFS=: read -r empno empname desig sal; do
+        echo "$empno  $empname  $desig  $sal"
+    done < employees.txt
+}
+
+
+while true; do
+    echo "----------------------------------------------"
+    echo "EMPLOYEE MANAGEMENT SYSTEM"
+    echo "----------------------------------------------"
+    echo "1. Add Employee"
+    echo "2. Modify Employee"
+    echo "3. Delete Employee"
+    echo "4. Display Employees"
+    echo "5. Exit"
+    echo "----------------------------------------------"
+    echo "Enter your choice:"
+    read choice
+
+    case $choice in
+        1) insert_employee ;;
+        2) modify_employee ;;
+        3) delete_employee ;;
+        4) display_employees ;;
+        5) exit ;;
+        *) echo "Invalid choice. Please choose again." ;;
+    esac
+done
+
+OUTPUT:
+Enter your choice:
+1
+Enter the Employee No:
+1
+Enter the Employee Name:
+YASH SHAH
+Enter the Employee Designation:
+MANAGER
+Enter the Employee Salary:
+40000
+Record inserted successfully!
+----------------------------------------------
+
+EMPLOYEE MANAGEMENT SYSTEM
+----------------------------------------------
+1. Add Employee
+2. Modify Employee
+3. Delete Employee
+4. Display Employees
+5. Exit
+----------------------------------------------
+Enter your choice:
+2
+Enter the Employee No to modify:
+1
+Enter the new Employee Name:
+JADEJA
+Enter the new Employee Designation:
+MANAGER
+Enter the new Employee Salary:
+20000
+Record modified successfully!
+----------------------------------------------
+EMPLOYEE MANAGEMENT SYSTEM
+----------------------------------------------
+1. Add Employee
+2. Modify Employee
+3. Delete Employee
+4. Display Employees
+5. Exit
+----------------------------------------------
+Enter your choice:4
+
+Employee No  Employee Name  Designation  Salary
+----------------------------------------------
+1  		JADEJA 		 MANAGER  25000
+
+----------------------------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------------------------
+4)The script will receive the filename or filename with its full path, the script
+should obtain information about this file as given by "ls -l" and display it in
+proper format.
+e.g., Filename : , File access permissions : , Number of links : , Owner of the
+file : , Group to which belongs : Size of file : , File modification date : , File
+modification time : .
+----------------------------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------------------------
+CODE:
+display_file_info() {
+    filename=$1
+
+   
+    if [ ! -e "$filename" ]; then
+        echo "Error: File '$filename' does not exist."
+        return
+    fi
+
+    
+    file_info=$(ls -l "$filename")
+
+  
+    file_permissions=$(echo "$file_info" | cut -d ' ' -f 1)
+    num_links=$(echo "$file_info" | cut -d ' ' -f 2)
+    owner=$(echo "$file_info" | cut -d ' ' -f 3)
+    group=$(echo "$file_info" | cut -d ' ' -f 4)
+    file_size=$(echo "$file_info" | cut -d ' ' -f 5)
+    modification_date=$(echo "$file_info" | cut -d ' ' -f 6,7)
+    modification_time=$(echo "$file_info" | cut -d ' ' -f 8)
+
+    echo "Filename: $filename"
+    echo "File access permissions: $file_permissions"
+    echo "Number of links: $num_links"
+    echo "Owner of the file: $owner"
+    echo "Group to which it belongs: $group"
+    echo "Size of file: $file_size"
+    echo "File modification date: $modification_date"
+    echo "File modification time: $modification_time"
+}
+
+
+filename=$1
+display_file_info "$filename"
+
+----------------------------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------------------------
+OUTPUT:
+[mca2338@agni yash]$ sh 17.sh welcome.sh
+Filename: welcome.sh
+File access permissions: -rw-rw-r--
+Number of links: 1
+Owner of the file: mca2338
+Group to which it belongs: mca2338
+Size of file: 116
+File modification date: Feb 21
+File modification time: 07:11
+
+----------------------------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------------------------
+
+5.
+Write a shell script to display the menu driven interface :- 1) list all files of
+the current directory 2) print the current directory 3) print the date 4)
+print the users otherwise display "Invalid Option".
+----------------------------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------------------------
+CODE:
+
+while true; do
+
+    echo "Menu:"
+    echo "1) List all files of the current directory"
+    echo "2) Print the current directory"
+    echo "3) Print the date"
+    echo "4) Print the users"
+    echo "5) Quit"
+
+    read -p "Enter your choice (1-5): " choice
+
+    case $choice in
+        1)
+            # List all files in the current directory
+            ls
+            ;;
+        2)
+            # Print the current directory
+            pwd
+            ;;
+        3)
+            # Print the date
+            date
+            ;;
+        4)
+            # Print the users
+            who
+	5) 
+	    exit()
+----------------------------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------------------------
+OUTPUT:
+Menu:
+1) List all files of the current directory
+2) Print the current directory
+3) Print the date
+4) Print the users
+5) Quit
+Enter your choice (1-5): 1
+23.sh  7.sh    consumer.c     filename.sh  file.txt  loop1.sh  loop.sh      prime.sh    program.c   yash
+2.sh   a.out   employees.txt  file.sh      input.sh  loop2.sh  pracprog1.c  producer    value.sh
+5.sh   arr.sh  emp.sh         files.sh     logcat    loop3.sh  pracprog.sh  producer.c  welcome.sh
+Menu:
+1) List all files of the current directory
+2) Print the current directory
+3) Print the date
+4) Print the users
+5) Quit
+
+Enter your choice (1-5): 2
+/home/mca2338/yash
+
+Menu:
+1) List all files of the current directory
+2) Print the current directory
+3) Print the date
+4) Print the users
+5) Quit
+Enter your choice (1-5):Tue Mar  5 10:27:06 IST 2024
+Menu:
+1) List all files of the current directory
+2) Print the current directory
+3) Print the date
+4) Print the users
+5) Quit
+Enter your choice (1-5):
+4
+mca2338  pts/0        2024-03-05 10:11 (172.16.116.37)
+mca2309  pts/1        2024-03-05 10:12 (172.16.116.36)
+mca2318  pts/2        2024-03-05 10:16 (172.16.116.17)
+mca2328  pts/3        2024-03-05 10:16 (172.16.116.18)
+mca2338  pts/4        2024-03-05 10:16 (172.16.116.37)
+
+----------------------------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------------------------
+6)Write a script which has the functionality similar to head and tail
+  commands.
+----------------------------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------------------------
+CODE:
+filename=$1
+
+echo "Displaying the first 10 lines:"
+count=0
+while IFS= read -r line && [ "$count" -lt 10 ]; do
+    echo "$line"
+    count=$((count + 1))
+done < "$filename"
+
+echo -e "\nDisplaying the last 10 lines:"
+mapfile -tn 10 lines < "$filename"
+for line in "${lines[@]}"; do
+    echo "$line"
+done
+----------------------------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------------------------
+OUTPUT:
+[mca2338@agni yash]$ sh 22.sh welcome.sh
+Displaying the first 10 lines:
+#include<stdio.h>
+#include<string.h>
+void main()
+{
+        string name="Yash";
+        int len;
+        len=strlen(name);
+        return len;
+}
+
+Displaying the last 10 lines:
+#include<stdio.h>
+#include<string.h>
+void main()
+{
+        string name="Yash";
+        int len;
+        len=strlen(name);
+        return len;
+}
+----------------------------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------------------------
+
+7.The script displays a list of all files in the current directory to which you
+have read, write and execute permissions.
+----------------------------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------------------------
+CODE:
+echo "Files in the current directory with read, write, and execute permissions:"
+echo "-----------------------------------------------------------------------"
+
+for file in *; do
+    if [[ -r $file && -w $file && -x $file ]]; then
+        echo "$file"
+    fi
+done
+
+echo "-----------------------------------------------------------------------"
+
+
+----------------------------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------------------------\
+OUTPUT:
+[mca2338@agni yash]$ sh 23.sh
+Files in the current directory with read, write, and execute permissions:
+-----------------------------------------------------------------------
+a.out
+logcat
+producer
+-----------------------------------------------------------------------
+
+8.Display the dates falling on Sundays of the current month.
+----------------------------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------------------------
+
+CODE:
+1. cal >> file.txt
+2. cat file.txt
+
+->     March 2024
+->  Su Mo Tu We Th Fr Sa
+->                  1  2
+->   3  4  5  6  7  8  9
+->  10 11 12 13 14 15 16
+->  17 18 19 20 21 22 23
+->  24 25 26 27 28 29 30
+->  31
+
+3. cut -c 1,2 file.txt
+----------------------------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------------------------
+OUTPUT
+-> Su
+->
+->  3
+-> 10
+-> 17
+-> 24
+-> 31
+
+
