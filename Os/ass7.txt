@@ -1,0 +1,36 @@
+Name      :  Mistry Shivam Manishbhai
+Roll No   :  23
+Course    :  Master in Computer Application
+Sem       :  2
+Subject   :  Operaing Systems
+-------------------------------------------------------------------------------------------------------------------------
+q-7 Swaps the first and last character in each line of the file.
+-------------------------------------------------------------------------------------------------------------------------
+
+sed 's/^\(.\)\(.*\)\(.\)$/\3\2\1/' myInfo.txt
+
+-------------------------------------------------------------------------------------------------------------------------
+										myInfo.txt data
+
+i am shivam mistry
+a coder
+an entertainnear
+busy guy
+my neak name is shivam
+cartoon loves to watch : pokemon,ben10....
+23 is my rollno
+
+
+
+										output
+
+y am shivam mistri
+r codea
+rn entertainnea
+yusy gub
+my neak name is shivam
+.artoon loves to watch : pokemon,ben10...c
+o3 is my rolln2
+
+
+-------------------------------------------------------------------------------------------------------------------------

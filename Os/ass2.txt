@@ -1,0 +1,35 @@
+Name      :  Mistry Shivam Manishbhai
+Roll No   :  23
+Course    :  Master in Computer Application
+Sem	       :  2
+Subject   :  Operaing Systems
+-------------------------------------------------------------------------------------------------------------------------
+q-2 Write a script that takes the file name from the user and displays all lines not starting with a or b or c.
+-------------------------------------------------------------------------------------------------------------------------
+
+echo -ne "Enter the filename : "
+read file
+echo ""
+if [ -f $file ]
+then
+        grep -v '^[abc]' $file
+else
+        echo "File not exist"
+fi
+
+-------------------------------------------------------------------------------------------------------------------------
+									myInfo.txt data
+i am shivam mistry
+a coder
+an entertainner
+busy guy
+my neak name is shiva
+cartoon loves to watch : pokemon,ben10....
+
+									output
+Enter the filename : myInfo.txt
+
+i am shivam mistry
+my neak name is shiva
+
+-------------------------------------------------------------------------------------------------------------------------

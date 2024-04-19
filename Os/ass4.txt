@@ -1,0 +1,35 @@
+Name      :  Mistry Shivam Manishbhai
+Roll No   :  23
+Course    :  Master in Computer Application
+Sem       :  2
+Subject   :  Operaing Systems
+-------------------------------------------------------------------------------------------------------------------------
+q-4 Write a script that takes the file name from the user and displays lines beginning either with alphabets or digits
+from the file.
+-------------------------------------------------------------------------------------------------------------------------
+
+echo -ne "Enter the filename : "
+read file
+echo ""
+if [ -f $file ]
+then
+        sed -n '/^[A-z0-9]/p' $file
+else
+        echo "File not exist"
+fi
+
+-------------------------------------------------------------------------------------------------------------------------
+										myInfo2.txt data
+My name is shivam
+$ is my favorite sign
+23 is my rollno
++ is used for addition
+
+
+										output
+Enter the filename : myInfo2.txt
+
+My name is shivam
+23 is my rollno
+
+-------------------------------------------------------------------------------------------------------------------------

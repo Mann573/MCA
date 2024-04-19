@@ -1,0 +1,69 @@
+Name      :  Mistry Shivam Manishbhai
+Roll No   :  23
+Course    :  Master in Computer Application
+Sem       :  2
+Subject   :  Operaing Systems
+-------------------------------------------------------------------------------------------------------------------------
+q-6 Write a shell script to generate a summary from the sales.dat file. Sales made by 3 salesmen by selling 3 products are 
+entered in a file. Add at least 10 records. The format is as shown below:
+
+Salesman: Product1: Product2: Product3
+Sample data:
+Mr. Abhishek Sharma: 21: 29: 12
+Mr. Akash Srivastava: 11: 15: 28
+Mr. Abhilash Dwivedi: 31: 04: 13
+Mr. Shivam: 25: 03: 01
+Mr. Jaychan: 45: 02: 36
+Mr. Neel: 10: 23: 24
+Mr. Yash: 25: 23: 14
+Mr. Dhruv: 24: 0: 23
+Mr. Priyank: 23: 12: 08
+Mr. Urjit: 12: 05: 46
+-------------------------------------------------------------------------------------------------------------------------
+
+echo "Enter the file name: "
+read file_name
+
+awk -F': ' '
+{
+    total_sales += $2 + $3 + $4
+    if ($2 > max_product1) {
+        max_product1 = $2
+        best_salesman_product1 = $1
+    }
+    if ($3 > max_product2) {
+        max_product2 = $3
+        best_salesman_product2 = $1
+    }
+    if ($4 > max_product3) {
+        max_product3 = $4
+        best_salesman_product3 = $1
+    }
+    if (total_sales > max_total_sales) {
+        max_total_sales = total_sales
+        best_salesman = $1
+    }
+    if (total_sales < min_total_sales) {
+        min_total_sales = total_sales
+        worst_salesman = $1
+    }
+}
+END {
+    print "Total sales of the company : " total_sales
+    print "Highest sold product: "
+    print "Product 1: " max_product1 " by " best_salesman_product1
+    print "Product 2: " max_product2 " by " best_salesman_product2
+    print "Product 3: " max_product3 " by " best_salesman_product3
+    print "Best salesman: " best_salesman
+    print "Worst salesman: " worst_salesman
+}' $file_name
+
+-------------------------------------------------------------------------------------------------------------------------
+
+Total sales of the company : 548
+Highest sold product : 
+Product 1 : 45 by Mr. Jaychan
+Product 2 : 29 by Mr. Abhishek Sharma
+Product 3 : 46 by Mr. Urjit
+
+-------------------------------------------------------------------------------------------------------------------------

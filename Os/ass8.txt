@@ -1,0 +1,31 @@
+Name      :  Mistry Shivam Manishbhai
+Roll No   :  23
+Course    :  Master in Computer Application
+Sem       :  2
+Subject   :  Operaing Systems
+-------------------------------------------------------------------------------------------------------------------------
+q-8 Write a script that takes the file name from the user and displays all lines starting with space (‘ ‘).
+-------------------------------------------------------------------------------------------------------------------------
+
+ grep '^[ ]' myInfo.txt
+
+-------------------------------------------------------------------------------------------------------------------------
+										myInfo.txt data
+
+i am shivam mistry
+a coder
+ an entertainnear
+busy guy
+my neak name is shivam
+ cartoon loves to watch : pokemon,ben10....
+23 is my rollno
+
+
+
+										output
+
+
+ an entertainner
+ cartoon loves to watch : pokemon,ben10....
+
+-------------------------------------------------------------------------------------------------------------------------

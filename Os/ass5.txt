@@ -1,0 +1,38 @@
+Name      :  Mistry Shivam Manishbhai
+Roll No   :  23
+Course    :  Master in Computer Application
+Sem       :  2
+Subject   :  Operaing Systems
+-------------------------------------------------------------------------------------------------------------------------
+q-5 Write a script that takes input from a file, with multiple records, as:
+ First name: middle name: last name: address: city: pin: phone and displays output as:
+Record 1
+Last name middle name first name
+Address
+City – pin
+Phone
+-------------------------------------------------------------------------------------------------------------------------
+
+awk -F": " '{printf "Record %d \n %s %s %s \n %s \n %s - %s \n %s \n",NR,$3,$2,$1,$4,$5,$6,$7  }' users.txt
+
+-------------------------------------------------------------------------------------------------------------------------
+										users.txt data
+
+Mistry: Manishbhai: Shivam: Joshi street: Chikhli: 396521: 6353209273
+Parmar: Jayntibhai: Neel: Jalaram ni pachhad: Chikhli: 396521: 8457124568
+
+
+										output
+
+Record 1
+ Shivam Manishbhai Mistry
+ Joshi street
+ Chikhli - 396521
+ 6353209273
+Record 2
+ Neel Jayntibhai Parmar
+ Jalaram ni pachhad
+ Chikhli - 396521
+ 8457124568
+
+-------------------------------------------------------------------------------------------------------------------------
