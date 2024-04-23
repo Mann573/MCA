@@ -1,0 +1,187 @@
+Name   : Solanki Jatin Ajaykumar
+Roll No: 40
+Subject: JAVA PROGRAMMING
+Course : MCA
+=============================================================================
+3>
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Scanner;
+
+class Student {
+    String name;
+    int rno;
+
+    public Student(String name, int rno) {
+        this.name = name;
+        this.rno = rno;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public int getRno() {
+        return rno;
+    }
+
+    @Override
+    public String toString() {
+        return "Student [name=" + name + ", rno=" + rno + "]";
+    }
+}
+
+public class Q3_cf {
+    public static void main(String[] args) {
+        Map<Integer, Student> studentMap = new HashMap<>();
+        Scanner scanner = new Scanner(System.in);
+        int choice;
+
+        do {
+            System.out.println("\nMenu:");
+            System.out.println("1. Check if a particular key exists and display the value");
+            System.out.println("2. Remove entry from hashtable");
+            System.out.println("3. Add new entry");
+            System.out.println("4. Display all entries");
+            System.out.println("5. Check if a particular value exists and display the value");
+            System.out.println("6. Exit");
+            System.out.println("Enter your choice: ");
+
+            choice = scanner.nextInt();
+
+            switch (choice) {
+                case 1:
+                    checkKeyExistenceAndDisplay(studentMap, scanner);
+                    break;
+                case 2:
+                    removeEntry(studentMap, scanner);
+                    break;
+                case 3:
+                    addNewEntry(studentMap, scanner);
+                    break;
+                case 4:
+                    displayAllEntries(studentMap);
+                    break;
+                case 5:
+                    checkValueExistenceAndDisplay(studentMap, scanner);
+                    break;
+                case 6:
+                    System.out.println("Exiting the program...");
+                    break;
+                default:
+                    System.out.println("Invalid choice. Please enter a valid option");
+            }
+        } while (choice != 6);
+
+        scanner.close();
+    }
+
+    private static void checkKeyExistenceAndDisplay(Map<Integer, Student> studentMap, Scanner scanner) {
+        System.out.println("Enter the roll number to check: ");
+        int rollNumber = scanner.nextInt();
+        if (studentMap.containsKey(rollNumber)) {
+            System.out.println("Student details: " + studentMap.get(rollNumber));
+        } else {
+            System.out.println("No student found with roll number " + rollNumber);
+        }
+    }
+
+    private static void removeEntry(Map<Integer, Student> studentMap, Scanner scanner) {
+        System.out.println("Enter the roll number to remove: ");
+        int rollToRemove = scanner.nextInt();
+        if (studentMap.containsKey(rollToRemove)) {
+            studentMap.remove(rollToRemove);
+            System.out.println("Student with roll number " + rollToRemove + " removed successfully.");
+        } else {
+            System.out.println("No student found with roll number " + rollToRemove + " to remove.");
+        }
+    }
+
+    private static void addNewEntry(Map<Integer, Student> studentMap, Scanner scanner) {
+        System.out.println("Enter the name of student: ");
+        String name = scanner.next();
+        System.out.println("Enter the roll number of student: ");
+        int roll = scanner.nextInt();
+        studentMap.put(roll, new Student(name, roll));
+        System.out.println("Student added successfully.");
+    }
+
+    private static void displayAllEntries(Map<Integer, Student> studentMap) {
+        System.out.println("All student entries:");
+        for (Map.Entry<Integer, Student> entry : studentMap.entrySet()) {
+            System.out.println("Roll number: " + entry.getKey() + ", Student Details: " + entry.getValue());
+        }
+    }
+
+    private static void checkValueExistenceAndDisplay(Map<Integer, Student> studentMap, Scanner scanner) {
+        System.out.println("Enter the name of the student to check: ");
+        String studentName = scanner.next();
+        boolean found = false;
+        for (Student student : studentMap.values()) {
+            if (student.getName().equals(studentName)) {
+                System.out.println("Student found with name '" + studentName + "': " + student.getRno());
+                found = true;
+                break;
+            }
+        }
+        if (!found) {
+            System.out.println("No student found with name '" + studentName + "'.");
+        }
+    }
+}
+
+
+
+OUTPUT:
+
+Menu:
+1. Check if a particular key exists and display the value
+2. Remove entry from hashtable
+3. Add new entry
+4. Display all entries
+5. Check if a particular value exists and display the value
+6. Exit
+Enter your choice:
+1
+Enter the roll number to check: 
+12
+No student found with roll number 12
+
+Menu:
+1. Check if a particular key exists and display the value
+2. Remove entry from hashtable
+3. Add new entry
+4. Display all entries
+5. Check if a particular value exists and display the value
+6. Exit
+Enter your choice:
+3
+Enter the name of student: 
+Gandhi
+Enter the roll number of student: 
+14
+Student added successfully.
+
+Menu:
+1. Check if a particular key exists and display the value
+2. Remove entry from hashtable
+3. Add new entry
+4. Display all entries
+5. Check if a particular value exists and display the value
+6. Exit
+Enter your choice:
+4
+All student entries:
+Roll number: 14, Student Details: Student [name=Gandhi, rno=14]
+
+Menu:
+1. Check if a particular key exists and display the value
+2. Remove entry from hashtable
+3. Add new entry
+4. Display all entries
+5. Check if a particular value exists and display the value
+6. Exit
+Enter your choice:
+6
+Exiting the program...

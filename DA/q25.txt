@@ -1,0 +1,108 @@
+Name   : Solanki Jatin Ajaykumar
+Roll No: 40
+Subject: JAVA PROGRAMMING
+Course : MCA
+=============================================================================
+
+1>import java.util.Collections;
+import java.util.LinkedList;
+
+class Employee implements Comparable<Employee> {
+    private int empId;
+    private String name;
+    private String dob;
+    private double salary;
+
+    public Employee(int empId, String name, String dob, double salary) {
+        this.empId = empId;
+        this.name = name;
+        this.dob = dob;
+        this.salary = salary;
+    }
+
+    // Getters and setters
+    public int getEmpId() {
+        return empId;
+    }
+
+    public void setEmpId(int empId) {
+        this.empId = empId;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getDob() {
+        return dob;
+    }
+
+    public void setDob(String dob) {
+        this.dob = dob;
+    }
+
+    public double getSalary() {
+        return salary;
+    }
+
+    public void setSalary(double salary) {
+        this.salary = salary;
+    }
+
+    // Implementing compareTo method
+    @Override
+    public int compareTo(Employee o) {
+        return Double.compare(this.salary, o.salary);
+    }
+
+    // Method to display employee details
+    public void getDetails() {
+        System.out.println("Employee ID: " + empId);
+        System.out.println("Name: " + name);
+        System.out.println("Date of Birth: " + dob);
+        System.out.println("Salary: " + salary);
+    }
+}
+
+public class Q1_cf {
+    public static void main(String[] args) {
+        LinkedList<Employee> employeeList = new LinkedList<>();
+
+        // Adding employee objects to the list
+        employeeList.add(new Employee(1, "Priya", "2003-04-16", 500));
+        employeeList.add(new Employee(2, "Zeeya", "2002-02-06", 2200));
+        employeeList.add(new Employee(3, "Riya", "2001-09-27", 300));
+
+        // Sorting the list based on salary
+        Collections.sort(employeeList);
+
+        // Displaying sorted employee list
+        System.out.println("Sorted employee list based on salary:");
+        for (Employee emp : employeeList) {
+            emp.getDetails();
+            System.out.println();
+        }
+    }
+}
+
+
+OUTPUT:
+Sorted employee list based on salary:
+Employee ID: 3
+Name: Riya
+Date of Birth: 2001-09-27
+Salary: 300.0
+
+Employee ID: 1
+Name: Priya
+Date of Birth: 2003-04-16
+Salary: 500.0
+
+Employee ID: 2
+Name: Zeeya
+Date of Birth: 2002-02-06
+Salary: 2200.0

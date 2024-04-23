@@ -1,0 +1,51 @@
+Name   : Solanki Jatin Ajaykumar
+Roll No: 40
+Subject: JAVA PROGRAMMING
+Course : MCA
+=============================================================================
+6>
+
+import java.util.HashSet;
+import java.util.Set;
+
+public class SetOperations {
+    public static void main(String[] args) {
+        // Creating two hash sets
+        Set<String> set1 = new HashSet<>();
+        set1.add("George");
+        set1.add("Jim");
+        set1.add("John");
+        set1.add("Blake");
+        set1.add("Kevin");
+        set1.add("Michael");
+
+        Set<String> set2 = new HashSet<>();
+        set2.add("George");
+        set2.add("Katie");
+        set2.add("Kevin");
+        set2.add("Michelle");
+        set2.add("Ryan");
+
+        // Union
+        Set<String> union = new HashSet<>(set1);
+        union.addAll(set2);
+        System.out.println("Union: " + union);
+
+        // Difference (elements in set1 but not in set2)
+        Set<String> difference = new HashSet<>(set1);
+        difference.removeAll(set2);
+        System.out.println("Difference (set1 - set2): " + difference);
+
+        // Intersection
+        Set<String> intersection = new HashSet<>(set1);
+        intersection.retainAll(set2);
+        System.out.println("Intersection: " + intersection);
+    }
+}
+
+
+OUTPUT:
+
+Union: [Michelle, Kevin, Ryan, George, Katie, Blake, Michael, John, Jim]
+Difference (set1 - set2): [Blake, Michael, John, Jim]
+Intersection: [Kevin, George]
