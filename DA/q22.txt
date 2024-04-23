@@ -1,0 +1,60 @@
+Name     :  Shah Mann Alpeshbhai
+Roll No   :  37
+Course   :  MCA - II
+Subject   :  JAVA programming
+-------------------------------------------------------------------------------------------------------------------------
+q-2. A method named average() has one argument that is an array of strings. It converts these to double values and returns 
+their average. The method generates a NullPointerException if a array elements is null or NumberFormatException if an 
+element is incorrectly formatted. Write a program that illustrates how to declare and use this method. Include throws clause 
+in the method declaration to indicate that these problems can occur.
+-------------------------------------------------------------------------------------------------------------------------
+
+public class as2 {
+    public static void main(String[] args) {
+        String[] val = { "10", "", "30", "40", "50" };
+
+        try {
+            double result = average(val);
+            System.out.println("Average is: " + result);
+        } catch (NullPointerException n) {
+            System.out.println("Array elements is null");
+        } catch (NumberFormatException nf) {
+            System.out.println("Incorrectly number format");
+        }
+    }
+
+    private static double average(String[] arr) throws NullPointerException, NumberFormatException {
+
+        if (arr == null) {
+            throw new NullPointerException("Array is null");
+        }
+
+        double sum = 0;
+        int count = 0;
+
+        for (String str : arr) {
+            if (str == null) {
+                throw new NullPointerException("Array is null");
+            }
+
+            try {
+                double num = Double.parseDouble(str);
+                sum = sum + num;
+                count++;
+            } catch (NumberFormatException nf) {
+                throw new NumberFormatException("Incorrectly formatted number.." + str);
+            }
+
+        }
+        if (count == 0) {
+            throw new NumberFormatException("No elements in the array");
+        }
+        return sum / count;
+    }
+}
+
+-------------------------------------------------------------------------------------------------------------------------
+
+Average is: 30.0
+
+-------------------------------------------------------------------------------------------------------------------------

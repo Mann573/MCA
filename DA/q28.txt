@@ -1,0 +1,62 @@
+Name     :  Shah Mann Alpeshbhai
+Roll No   :  37
+Course   :  MCA - II
+Subject   :  JAVA programming
+-------------------------------------------------------------------------------------------------------------------------
+Write a program to store a deck of 52 cards in a linked list in random sequence using a Random class
+object. You can represent a card as a two-character string—”1C” for the ace of clubs, “JD” for the
+jack of diamonds, and so on. Output the cards from the linked list as four hands of 13 cards.
+-------------------------------------------------------------------------------------------------------------------------
+
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Random;
+
+public class Q4_cf {
+
+    public static void main(String[] args) {
+        LinkedList<String> deck = new LinkedList<>();
+        Random random = new Random();
+
+        // Creating the deck of cards
+        for (int i = 1; i <= 13; i++) {
+            deck.add(i + "C"); // Club
+            deck.add(i + "S"); // Spade
+            deck.add(i + "H"); // Heart
+            deck.add(i + "D"); // Diamond
+        }
+
+        // Shuffle the deck
+        Collections.shuffle(deck, random);
+
+        // Distributing cards to four hands
+        List<String> hand1 = new LinkedList<>();
+        List<String> hand2 = new LinkedList<>();
+        List<String> hand3 = new LinkedList<>();
+        List<String> hand4 = new LinkedList<>();
+
+        for (int j = 0; j < 13; j++) {
+            hand1.add(deck.removeFirst());
+            hand2.add(deck.removeFirst());
+            hand3.add(deck.removeFirst());
+            hand4.add(deck.removeFirst());
+        }
+
+        // Displaying the hands
+        System.out.println("Hand 1: " + hand1);
+        System.out.println("Hand 2: " + hand2);
+        System.out.println("Hand 3: " + hand3);
+        System.out.println("Hand 4: " + hand4);
+    }
+}
+
+
+-------------------------------------------------------------------------------------------------------------------------
+
+Hand 1: [8D, 6S, 5C, 6D, 1D, 7D, 1H, 5D, 7C, 12C, 5S, 13C, 13D]
+Hand 2: [10H, 2C, 7S, 12H, 9S, 8S, 10C, 4D, 13S, 1C, 7H, 9D, 9C]
+Hand 3: [5H, 8H, 11C, 11S, 10S, 2H, 8C, 12D, 4H, 10D, 6C, 6H, 2D]
+Hand 4: [11H, 12S, 11D, 4C, 4S, 3D, 3H, 3C, 1S, 3S, 13H, 2S, 9H]
+
+-------------------------------------------------------------------------------------------------------------------------

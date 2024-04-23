@@ -1,0 +1,154 @@
+Name     :  Shah Mann Alpeshbhai
+Roll No   :  37
+Course   :  MCA - II
+Subject   :  JAVA programming
+-------------------------------------------------------------------------------------------------------------------------
+q-4. Write a program which creates an array of Date in form (dd/mm/yy). Analyze each element and check whether the date 
+is correct or not. If the date is wrong then throw a User defined Exception DateException and display the appropriate 
+message. If the Date is correct then display the date in this format. For example, if the date is 9/9/06 then display the 
+date like 9th September 2006. You are able to display all the dates in the given String and for the date which is not proper,
+display the appropriate message.
+-------------------------------------------------------------------------------------------------------------------------
+
+class Temp4
+{
+    public static void main(String args[])
+    {
+        Date d1 = new Date("12/13/2023");
+        System.out.println(d1.toString());
+        Date d2 = new Date("12/02/23");
+        System.out.println(d2.toString());
+        System.out.println(d2.monthMap(5));
+    }
+    
+}
+class DateException extends Exception{
+
+    int err_code=10;
+    DateException(int err_code)
+    {
+        this.err_code=err_code;
+    }
+
+    DateException()
+    {     }
+
+    @Override
+    public String toString() {
+        if(err_code==0)
+            return "Invalid Day Value";
+        else if(err_code==1)
+            return "Invalid Month Value";
+        else if(err_code==2)
+            return "Invalid Year Value";
+        else
+            return "Invalid Date Format";
+    }
+
+    
+}
+
+class Date {
+    int day;
+    int month;
+    int year;
+    int century=21;
+
+    Date(String date)
+    {
+        String[] values = date.split("/");
+        this.day= Integer.parseInt(values[0]);
+        this.month= Integer.parseInt(values[1]);
+        this.year= Integer.parseInt(values[2])+(this.century-1)*100;
+    }
+
+    Date()
+    {   }
+
+    static String monthMap(int month)
+    {
+        switch (month) {
+            case 1:
+                return "January";
+            case 2:
+                return "February";    
+            case 3:
+                return "March";
+            case 4:
+                return "April";
+            case 5:
+                return "May";
+            case 6:
+                return "June";
+            case 7:
+                return "July";
+            case 8:
+                return "August";
+            case 9:
+                return "September";
+            case 10:
+                return "October";
+            case 11:
+                return "November";
+            case 12:
+                return "December";
+            default:
+                return null;
+        }
+    }
+    static String suffix(int day)
+    {
+        if(day==1 || day==21 || day==31)
+            return "st";
+        if(day==2 || day==22 )
+            return "nd";
+        if(day==3 || day==23)
+            return "rd";
+
+        return "th";
+    }
+
+    public String toString()
+    {
+        String temp=new String();
+        
+        try{
+            if(this.day<=0 
+            || (this.day>28 && this.month == 2 && this.year%4 !=0) 
+            || (this.day>29 && this.month == 2 && this.year%4 ==0) 
+            || (this.day > 31)
+            || (this.day > 30 &&((this.month%2!=0 && this.month >=8) || (this.month%2 ==0 && this.month <8))))
+                throw new DateException(0);
+
+            temp += day;
+            temp += suffix(day);
+            temp += " ";
+
+            if(this.month<=0 || this.month>12)
+                throw new DateException(1);
+
+            temp += monthMap(this.month);
+            temp += " ";
+
+            if(this.year <2000 || this.year >2099)
+                throw new DateException(2);
+            
+            temp += this.year;
+            temp += " ";
+
+            return temp;
+        }
+        catch(DateException e)
+        {
+            return e.toString();
+        }
+    }
+}
+
+-------------------------------------------------------------------------------------------------------------------------
+
+Invalid Month Value
+12th February 2023
+May
+
+-------------------------------------------------------------------------------------------------------------------------

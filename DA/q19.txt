@@ -1,0 +1,161 @@
+Name     :  Shah Mann Alpeshbhai
+Roll No   :  37
+Course   :  MCA - II
+Subject   :  JAVA programming
+-------------------------------------------------------------------------------------------------------------------------
+q-5 Create three packages—PersonPack, FlatPack and PFPack.
+a. Package PersonPack must contain a class called Person with the following attributes: PIDNumber, name, etc.
+i. It must have a reference variable of the type Flat.
+ii. It should have a static method displayOwnershiplnfo() that takes as an input parameter a variable of PIDNumber and returns 
+void. This method must display the information about the classes Person and Flat.
+
+b. Package FlatPack must contain the class F with following attributes: apartmentName, flatNo and noOfBedrooms
+i. It should have method dispFlatlnfo() that displays information of the attributes of the class Flat.
+
+c. Package PFPack must contain a class called PFDemo that has a main method .
+i. create objects of the classes Person and Flat and
+ii. invoke the displayOwnershiplnfo() method
+-------------------------------------------------------------------------------------------------------------------------
+
+package Q5.FlatPack;
+import java.util.Scanner;
+
+class Flat {
+    String apartmentName;
+    int flatNo;
+    int noOfBedrooms;
+    boolean hasOwner=false;
+
+    public void setData()
+    {
+        System.out.println("Enter Apname, flatno, noOfBedRoom");
+        Scanner scan = new Scanner(System.in);
+        this.apartmentName = scan.nextLine();
+        this.flatNo = Integer.parseInt(scan.nextLine());
+        this.noOfBedrooms = Integer.parseInt(scan.nextLine());
+        scan.close();
+    }
+
+    public void changeOwnershipStatus()
+    {
+        this.hasOwner = (this.hasOwner)? false : true;
+    }
+
+    public boolean getOwnershipStatus()
+    {
+        return (hasOwner)?true : false;
+    }
+    
+    public void dispFlatlnfo()
+    {
+        System.out.println("------Flat Info------\napartmentName : "+apartmentName+"\nflatNo: "+flatNo
+                          +"\nnoOfBedrooms: "+noOfBedrooms+"\nhasOwner: "+hasOwner);
+    }
+}
+
+
+
+class Person {
+    int PIDNumber;
+    String name;
+    int age;
+    Flat flatVar;
+
+    public void setData()
+    {
+        PersonDatabase.insertData(this);
+        System.out.println("Enter ID, Name, Age");
+        try{
+            Scanner scan = new Scanner(System.in);
+            this.PIDNumber = Integer.parseInt(scan.nextLine());
+            this.name = scan.nextLine();
+            this.age = Integer.parseInt(scan.nextLine());
+            scan.close();
+        }
+        catch(Exception e)
+        {
+            System.out.println("Some Error Occured Please Retry");
+        }
+    }
+
+
+    public int getID()
+    {
+        return PIDNumber;
+    }
+
+    public void buys(Flat flatVar)
+    {
+        if(flatVar.getOwnershipStatus()==false)
+        {
+            flatVar.changeOwnershipStatus();
+            this.flatVar=flatVar;
+        }    
+        else
+            System.out.println("The Flat is Already Owned By Someone Else");
+    }
+
+    public static void displayOwnershiplnfo(int PIDNumber)
+    {
+        Person temp = PersonDatabase.getInfo(PIDNumber);
+        if(temp==null)
+            System.out.println("No Person Found With the Given ID");
+        else
+        {
+            System.out.println("-----Person Info----\nID: "+temp.PIDNumber+"\nName: "+temp.name+"\nAge: "+temp.age);
+            if(temp.flatVar != null)
+                temp.flatVar.dispFlatlnfo();
+            else
+                System.out.println("The person doesn't own any flat");
+        }
+    }
+}
+
+
+class PFDemo {
+    public static void main(String args[])
+    {
+        Person p1 = new Person();
+        p1.setData();
+        Flat f1 = new Flat();
+        f1.setData();
+        System.out.println(f1.getOwnershipStatus());
+        p1.buys(f1);
+        p1.buys(f1);
+
+        Person.displayOwnershiplnfo(101);
+    }
+}
+
+class PersonDatabase {
+    static Person[] personVar= new Person[10];
+    static int size=0;
+
+    public static Person getInfo(int PIDNumber)
+    {
+        for(Person pr: personVar)
+        {
+            if(pr != null && PIDNumber==pr.getID())
+                return pr;
+        }
+        return null;
+    }
+
+    public static void insertData(Person object)
+    {
+        personVar[size++]=object;
+    }
+}
+
+-------------------------------------------------------------------------------------------------------------------------
+
+Enter ID, Name, Age
+23 
+xyz
+21
+Enter Apname, flatno, noOfBedRoom
+joshi
+102
+3
+
+-------------------------------------------------------------------------------------------------------------------------

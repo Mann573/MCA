@@ -1,0 +1,88 @@
+Name     :  Shah Mann Alpeshbhai
+Roll No   :  37
+Course   :  MCA - II
+Subject   :  JAVA programming
+-------------------------------------------------------------------------------------------------------------------------
+q-1 Write a class called Statistics, which has a static method called average, which takes a one
+dimensional array for double type, as parameter, and prints the average for the values in the
+array.
+a. Now write a class with the main method, which creates a two-dimensional array for the
+four weeks of a month, containing minimum temperatures for the days of the week(an
+array of 4 by 7), and uses the average method of the Statistics class to compute and
+print the average temperatures for the four weeks.
+-------------------------------------------------------------------------------------------------------------------------
+
+import java.util.Scanner;
+class Statistics{
+    static double sum = 0;
+    static double average(double arr[]) {
+        for(double ele : arr)
+        {
+            sum += ele;
+        }
+        return sum/7;
+    }
+}
+
+public class New {
+    public static void main(String args[])
+    {
+        double tempInfo[][] = new double[4][7];
+        Scanner sc = new Scanner(System.in);
+        int day = 0;
+        for(int i = 0 ; i < 4 ; i++)
+        {
+            for(int j = 0 ; j < 7 ; j++)
+            {
+                
+                System.out.print("Enter temprature of week"+(i+1)+" day"+((day % 7) + 1)+" : ");
+                tempInfo[i][j] = sc.nextDouble();
+                day++;
+            }
+        }
+        int w = 1;
+        for(double[] week : tempInfo)
+        {
+            System.out.println("Average temperature of week"+(w++)+" : "+Statistics.average(week));
+        }
+        System.out.println((0/7)+1);
+    }
+}
+
+-------------------------------------------------------------------------------------------------------------------------
+
+Enter temprature of week1 day1 : 11.23
+Enter temprature of week1 day2 : 12.25
+Enter temprature of week1 day3 : 9.21
+Enter temprature of week1 day4 : 10.12
+Enter temprature of week1 day5 : 10.24
+Enter temprature of week1 day6 : 12.12
+Enter temprature of week1 day7 : 18.12
+Enter temprature of week2 day1 : 16.25
+Enter temprature of week2 day2 : 15.24
+Enter temprature of week2 day3 : 15.24
+Enter temprature of week2 day4 : 13.45
+Enter temprature of week2 day5 : 15.24
+Enter temprature of week2 day6 : 13.24
+Enter temprature of week2 day7 : 17.24
+Enter temprature of week3 day1 : 13.24
+Enter temprature of week3 day2 : 16.24
+Enter temprature of week3 day3 : 13.24
+Enter temprature of week3 day4 : 15.24
+Enter temprature of week3 day5 : 15.24
+Enter temprature of week3 day6 : 12.36
+Enter temprature of week3 day7 : 15.24
+Enter temprature of week4 day1 : 13.25
+Enter temprature of week4 day2 : 13.36
+Enter temprature of week4 day3 : 12.35
+Enter temprature of week4 day4 : 12.24
+Enter temprature of week4 day5 : 13.21
+Enter temprature of week4 day6 : 13.45
+Enter temprature of week4 day7 : 16.31
+
+Average temperature of week1 : 11.89857142857143
+Average temperature of week2 : 27.02714285714286
+Average temperature of week3 : 41.42714285714287
+Average temperature of week4 : 54.88000000000001
+
+-------------------------------------------------------------------------------------------------------------------------

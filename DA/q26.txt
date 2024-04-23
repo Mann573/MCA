@@ -1,0 +1,159 @@
+Name     :  Shah Mann Alpeshbhai
+Roll No   :  37
+Course   :  MCA - II
+Subject   :  JAVA programming
+-------------------------------------------------------------------------------------------------------------------------
+2. Create a HashSet of 5 names. Write a menu driven program to do the following:
+a. Add a new name
+b. Remove a name
+c. Search a name
+d. Display all the names (display in reverser order also – use ListIterator )
+e. Display number of elements in hashset
+
+-------------------------------------------------------------------------------------------------------------------------
+
+import java.util.HashSet;
+import java.util.Scanner;
+import java.util.ListIterator;
+import java.util.LinkedList;
+
+public class Q2_cf {
+    public static void main(String[] args) {
+        HashSet<String> nameSet = new HashSet<>();
+        initializeNames(nameSet);
+
+        char choice;
+        Scanner scanner = new Scanner(System.in);
+
+        do {
+            System.out.println("\nMenu:");
+            System.out.println("a. Add a new name");
+            System.out.println("b. Remove a name");
+            System.out.println("c. Search a name");
+            System.out.println("d. Display all names");
+            System.out.println("e. Display all names in reverse order");
+            System.out.println("f. Display number of elements");
+            System.out.println("g. Exit");
+            System.out.println("Enter your choice: ");
+            choice = scanner.next().charAt(0);
+
+            switch (choice) {
+                case 'a':
+                    System.out.println("Enter the name to add: ");
+                    String newName = scanner.next();
+                    if (nameSet.add(newName))
+                        System.out.println("Name added successfully");
+                    else
+                        System.out.println("Name already exists");
+                    break;
+                case 'b':
+                    System.out.println("Enter the name to remove: ");
+                    String nameToRemove = scanner.next();
+                    if (nameSet.remove(nameToRemove))
+                        System.out.println("Name removed successfully");
+                    else
+                        System.out.println("Name not found");
+                    break;
+                case 'c':
+                    System.out.println("Enter the name to search: ");
+                    String nameToSearch = scanner.next();
+                    if (nameSet.contains(nameToSearch))
+                        System.out.println("Name found in the set");
+                    else
+                        System.out.println("Name not found in the set");
+                    break;
+                case 'd':
+                    System.out.println("All names in the set:");
+                    displayNames(nameSet);
+                    break;
+                case 'e':
+                    System.out.println("All names in reverse order:");
+                    displayNamesInReverse(nameSet);
+                    break;
+                case 'f':
+                    System.out.println("Number of elements in the set: " + nameSet.size());
+                    break;
+                case 'g':
+                    System.out.println("Exiting the program");
+                    break;
+                default:
+                    System.out.println("Invalid choice. Please enter a valid option");
+            }
+        } while (choice != 'g');
+
+        scanner.close();
+    }
+
+    private static void initializeNames(HashSet<String> nameSet) {
+        nameSet.add("Alice");
+        nameSet.add("Bob");
+        nameSet.add("Charlie");
+        nameSet.add("David");
+        nameSet.add("Eve");
+    }
+
+    private static void displayNames(HashSet<String> nameSet) {
+        for (String name : nameSet) {
+            System.out.println(name);
+        }
+    }
+
+    private static void displayNamesInReverse(HashSet<String> nameSet) {
+        ListIterator<String> iterator = new LinkedList<>(nameSet).listIterator(nameSet.size());
+        while (iterator.hasPrevious()) {
+            System.out.println(iterator.previous());
+        }
+    }
+}
+
+
+-------------------------------------------------------------------------------------------------------------------------
+
+Menu:
+a. Add a new name
+b. Remove a name 
+c. Search a name
+d. Display all names
+e. Display all names in reverse order
+f. Display number of elements
+g. Exit
+Enter your choice:
+a
+Enter the name to add: 
+aple
+Name added successfully
+
+Menu:
+a. Add a new name
+b. Remove a name
+c. Search a name
+d. Display all names
+e. Display all names in reverse order
+f. Display number of elements
+g. Exit
+Enter your choice:
+
+d
+All names in the set:
+Bob
+Eve
+aple
+Alice
+Charlie
+David
+
+Menu:
+a. Add a new name
+b. Remove a name
+c. Search a name
+d. Display all names
+e. Display all names in reverse order
+f. Display number of elements
+g. Exit
+Enter your choice:
+g
+Exiting the program
+
+-------------------------------------------------------------------------------------------------------------------------
+
+

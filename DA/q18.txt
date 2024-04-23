@@ -1,0 +1,158 @@
+Name     :  Shah Mann Alpeshbhai
+Roll No   :  37
+Course   :  MCA - II
+Subject   :  JAVA programming
+-------------------------------------------------------------------------------------------------------------------------
+q-4 Develop a basic graphics package.
+a. Within the package create a abstract class Shape having function print().
+b. Create two subclasses Two Dimensional and three Dimensional from Shape class .
+c. These two subclasses also should be abstract.
+d. Implement the print method in the subclasses Square, Circle, Cylinder, Cube, to output the type and dimension of 
+the shape Also include area and volume methods to calculate the area and volume of the concrete shapes
+e. Write a driver program that creates various shapes and put them in an array of Shape Use polymorphism to print and 
+calculate the area and volume of objects stored in array.
+-------------------------------------------------------------------------------------------------------------------------
+
+package Q4_Cl.graphics;
+
+abstract public class Shape {
+    abstract void print();
+}
+
+// b. Create two subclasses Two Dimensional and three Dimensional from Shape class .
+abstract class Two_D extends Shape{
+    abstract double area();
+}
+abstract class Three_D extends Shape{
+    abstract double volume();
+}
+
+// d. Implement the print method in the subclasses Square, Circle, Cylinder, Cube, to output
+// Also include area and volume methods to calculate
+// the area and volume of the concrete shapes
+
+class Square extends Two_D{
+    double side;
+
+    Square(double side){
+        this.side=side;
+    }
+
+    void print(){
+        System.out.println("Type: Square \nDimensions: 2" );
+    }
+    double area(){
+        return this.side*this.side;
+    }
+}
+
+class Circle extends Two_D{
+    double radius;
+
+    Circle(double radius){
+        this.radius=radius;
+    }
+
+    void print(){
+        System.out.println("Type: Circle \nDimensions: 2" );
+    }
+    double area(){
+        return Math.PI*this.radius*this.radius;
+    }
+}
+
+class Cylinder extends Three_D{
+    double radius;
+    double height;
+
+    Cylinder(double radius,double height){
+        this.height=height;
+        this.radius=radius;
+    }
+
+    void print(){
+        System.out.println("Type: Cylinder \nDimensions: 3" );
+    }
+
+    double volume(){
+        return Math.PI*this.radius*this.radius*this.height;
+    }
+}
+
+class Cube extends Three_D{
+    double side;
+
+    Cube(double side){
+        this.side=side;
+    }
+
+    void print(){
+        System.out.println("Type: Cube \nDimensions: 3" );
+    }
+
+    double volume(){
+        return this.side*this.side*this.side;
+    }
+}
+
+class Driver {
+    public static void main(String[] args) {
+        Shape[] shapes = new Shape[8]; 
+
+        
+        shapes[0] = new Square(5);
+        shapes[1] = new Square(5);
+        shapes[2] = new Circle(5);
+        shapes[3] = new Circle(5);
+        shapes[4] = new Cube(5);
+        shapes[5] = new Cube(5);
+        shapes[6] = new Cylinder(5, 2);
+        shapes[7] = new Cylinder(5, 9);
+
+        try {
+            for (Shape shape : shapes) {
+                if (shape == null)
+                    continue;
+
+                shape.print();
+                if (shape instanceof Two_D) {
+                    System.out.println("Area: " + ((Two_D)shape).area());
+
+                } else if (shape instanceof Three_D) {
+                    System.out.println("Volume: " + ((Three_D)shape).volume());
+                }
+            }
+        } catch (Exception e) {
+            System.out.println("Some Error Occurred");
+        }
+    }
+}
+
+-------------------------------------------------------------------------------------------------------------------------
+
+Type: Square 
+Dimensions: 2
+Area: 25.0
+Type: Square 
+Dimensions: 2
+Area: 25.0
+Type: Circle 
+Dimensions: 2
+Area: 78.53981633974483
+Type: Circle 
+Dimensions: 2
+Area: 78.53981633974483
+Type: Cube 
+Dimensions: 3
+Volume: 125.0
+Type: Cube 
+Dimensions: 3
+Volume: 125.0
+Type: Cylinder 
+Dimensions: 3
+Volume: 157.07963267948966
+Type: Cylinder 
+Dimensions: 3
+Volume: 706.8583470577034
+
+-------------------------------------------------------------------------------------------------------------------------

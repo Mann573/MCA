@@ -1,0 +1,45 @@
+Name     :  Shah Mann Alpeshbhai
+Roll No   :  37
+Course   :  MCA - II
+Subject   :  JAVA programming
+-------------------------------------------------------------------------------------------------------------------------
+q-3. Write a program which creates an Array of character. Make one function with one argument as a character and that 
+function throw a user defined exception if the character that u have passed is digit.
+-------------------------------------------------------------------------------------------------------------------------
+
+class DigitExcp extends Exception {
+    public DigitExcp(String msg) {
+        super(msg);
+    }
+}
+
+public class as3 {
+    public static void main(String[] args) {
+        char[] alphanum = { 'p', 'r', '1', 'y', '0' };
+
+        for (char c : alphanum) {
+            try {
+                charcheck(c);
+                System.out.println("Characters " + c + " is a not digit");
+            } catch (DigitExcp dgex) {
+                System.out.println(dgex.getMessage());
+            }
+        }
+    }
+
+    private static void charcheck(char c) throws DigitExcp {
+        if (Character.isDigit(c)) {
+            throw new DigitExcp("Digit " + c + " found");
+        }
+    }
+}
+
+-------------------------------------------------------------------------------------------------------------------------
+
+Characters p is a not digit
+Characters r is a not digit
+Digit 1 found
+Characters y is a not digit
+Digit 0 found
+
+-------------------------------------------------------------------------------------------------------------------------

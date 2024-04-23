@@ -1,0 +1,142 @@
+Name     :  Shah Mann Alpeshbhai
+Roll No   :  37
+Course   :  MCA - II
+Subject   :  JAVA programming
+-------------------------------------------------------------------------------------------------------------------------
+q-3 Develop the Figure application in given steps.
+a. Design an interface IFig having the following methods:
+i. public void calcAreaQ;
+ii. public void calcVolumeO;
+iii. It must also have the variable pi of the type double and having a value 3.1428.
+b. Design an abstract class called Figure.
+i. It must have three attributes r. a and v of data type double.
+ii. It has abstract methods:
+1. public abstract void dispAreaQ;
+2. public abstract void dispVolumeO;
+
+c. Design three classes Cone, Sphere and Cylinder. Each of them, should
+extend the Figure class and implement the IFig interface.
+d. Write a test program to demonstrate polymorphism
+-------------------------------------------------------------------------------------------------------------------------
+
+interface IFig {
+    void calcAreaQ();
+    void calcVolumeO();
+    double PI = 3.1428;
+}
+
+abstract class Figure {
+    double radius, area, volume;
+
+    abstract void dispAreaQ();
+    abstract void dispVolumeO();
+}
+
+class Cone extends Figure implements IFig {
+    double height, sl_height;
+
+    Cone(double height, double radius) {
+        this.height = height;
+        this.radius = radius;
+        this.sl_height = Math.sqrt(height * height + radius * radius);
+    }
+
+    void dispAreaQ() {
+        calcAreaQ();
+        System.out.println("Area = " + area);
+    }
+
+    void dispVolumeO() {
+        calcVolumeO();
+        System.out.println("Volume = " + volume);
+    }
+
+    public void calcAreaQ() {
+        this.area = (PI * radius * sl_height) + (PI * radius * radius);
+    }
+
+    public void calcVolumeO() {
+        this.volume = (PI * radius * radius * height) / 3;
+    }
+}
+
+class Sphere extends Figure implements IFig {
+    Sphere(double radius) {
+        this.radius = radius;
+    }
+
+    void dispAreaQ() {
+        calcAreaQ();
+        System.out.println("Area = " + area);
+    }
+
+    void dispVolumeO() {
+        calcVolumeO();
+        System.out.println("Volume = " + volume);
+    }
+
+    public void calcAreaQ() {
+        this.area = 4 * PI * radius * radius;
+    }
+
+    public void calcVolumeO() {
+        this.volume = (4 * PI * radius * radius * radius) / 3;
+    }
+}
+
+class Cylinder extends Figure implements IFig {
+    double height;
+
+    Cylinder(double radius, double height) {
+        this.radius = radius;
+        this.height = height;
+    }
+
+    void dispAreaQ() {
+        calcAreaQ();
+        System.out.println("Area = " + area);
+    }
+
+    void dispVolumeO() {
+        calcVolumeO();
+        System.out.println("Volume = " + volume);
+    }
+
+    public void calcAreaQ() {
+        this.area = (2 * PI * radius * radius) + (2 * PI * radius * height);
+    }
+
+    public void calcVolumeO() {
+        this.volume = PI * radius * radius * height;
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Figure[] figures = new Figure[3];
+
+        figures[0] = new Cone(5, 3);
+        figures[1] = new Sphere(4);
+        figures[2] = new Cylinder(2, 6);
+
+        for (Figure figure : figures) {
+            figure.dispAreaQ();
+            figure.dispVolumeO();
+            System.out.println();
+        }
+    }
+}
+
+
+-------------------------------------------------------------------------------------------------------------------------
+Area = 83.26174684535943
+Volume = 47.141999999999996
+
+Area = 201.1392
+Volume = 268.18559999999997
+
+Area = 100.5696
+Volume = 75.4272
+
+
+-------------------------------------------------------------------------------------------------------------------------

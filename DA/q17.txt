@@ -1,0 +1,133 @@
+Name     :  Shah Mann Alpeshbhai
+Roll No   :  37
+Course   :  MCA - II
+Subject   :  JAVA programming
+-------------------------------------------------------------------------------------------------------------------------
+q-2  Define a class called Cartesian Point, which has two instance variables, x and y. Provide the following methods
+1. get X() and get Y() to return the values of the x and y values respectively.
+2. move() which would take two integers as parameters and change the values of x and y respectively,
+3.  i. a method called display() which would display the current values of x and y.
+    ii. Now overload the method move() to work with single parameter, which would set both x and y to the same values, .
+    iii. Provide constructors with two parameters and overload to work with one parameter as well.
+-------------------------------------------------------------------------------------------------------------------------
+
+class CartesianPoint {
+    double x,y;
+
+    CartesianPoint(double x){
+        this.x=x;
+        this.y=x;
+    }
+    CartesianPoint(double x, double y){
+        this.x=x;
+        this.y=y;
+    }
+    double get_X(){
+        return this.x;
+    }
+    double get_Y(){
+        return this.y;
+    }
+    void move(double x, double y){
+        this.x=x;
+        this.y=y;
+    }
+    void move(double x){
+        this.x=x;
+        this.y=x;
+    }
+    void display(){
+        System.out.println("("+x+","+y+")");
+    }
+
+}
+
+
+class Triangle {
+    CartesianPoint p1,p2,p3;
+    double side_a,side_b,side_c;
+
+    Triangle(CartesianPoint p1, CartesianPoint p2, CartesianPoint p3){
+        this.p1=p1;
+        this.p2=p2;
+        this.p3=p3;
+
+        this.side_a = Math.sqrt(Math.pow(p2.get_X()-p1.get_X(), 2)+Math.pow(p2.get_Y()-p1.get_Y(), 2));
+        this.side_b = Math.sqrt(Math.pow(p3.get_X()-p2.get_X(), 2)+Math.pow(p3.get_Y()-p2.get_Y(), 2));
+        this.side_c = Math.sqrt(Math.pow(p1.get_X()-p3.get_X(), 2)+Math.pow(p1.get_Y()-p3.get_Y(), 2));
+    }
+    double area(){
+        double h_peri=(side_a+side_b+side_c)/2;
+        System.out.println(h_peri);
+        return Math.sqrt(h_peri*(h_peri-side_a)*(h_peri-side_b)*(h_peri-side_c));
+    }
+
+    double perimeter(){
+        return side_a+side_b+side_c;
+    }
+
+    void display(){
+        p1.display();
+        p2.display();
+        p3.display();
+    }
+    void move(double x, double y){
+        double x_diff = x-p1.get_X();
+        double y_diff = y-p1.get_Y();
+        p1.move(x,y);
+        p2.move(x_diff+p2.get_X(), y_diff+p2.get_Y());
+        p3.move(x_diff+p3.get_X(),y_diff+p3.get_Y());
+    }
+    void move(CartesianPoint c1){
+        double x_diff = c1.get_X()-p1.get_X();
+        double y_diff = c1.get_Y()-p1.get_Y();
+
+        p1.move(c1.get_X(),c1.get_Y());
+        p2.move(x_diff+p2.get_X(), y_diff+p2.get_Y());
+        p3.move(x_diff+p3.get_X(),y_diff+p3.get_Y());
+    }
+    void rotate(double angle){
+        p1.move(p1.get_X()*Math.cos(angle)-p1.get_Y()*Math.sin(angle), p1.get_X()*Math.sin(angle)+p1.get_Y()*Math.cos(angle));
+
+        p2.move(p2.get_X()*Math.cos(angle)-p2.get_Y()*Math.sin(angle), p2.get_X()*Math.sin(angle)+p2.get_Y()*Math.cos(angle));
+
+        p3.move(p3.get_X()*Math.cos(angle)-p3.get_Y()*Math.sin(angle), p3.get_X()*Math.sin(angle)+p3.get_Y()*Math.cos(angle));
+    }
+    
+}
+
+
+
+public class Test {
+    public static void main(String[] args) {
+        CartesianPoint p1= new CartesianPoint(20,30);
+        CartesianPoint p2= new CartesianPoint(12,40);
+        CartesianPoint p3= new CartesianPoint(13,50);
+        Triangle t1 =new Triangle(p1, p2, p3);
+        t1.display();
+        t1.move(3, 4);
+        t1.display();
+        System.out.println(t1.area());
+        t1.rotate(180);
+        t1.display();
+        System.out.println(t1.area());
+    }
+}
+
+-------------------------------------------------------------------------------------------------------------------------
+
+(20.0,30.0)
+(12.0,40.0)
+(13.0,50.0)
+(3.0,4.0)
+(-5.0,14.0)
+(-4.0,24.0)
+22.022872098201837
+44.99999999999993
+(1.4092303357617475,-4.797298183432924)
+(14.208437245562918,-4.3726777881408605)
+(21.621503533843363,-11.158431114453272)
+22.022872098201837
+44.99999999999993
+
+-------------------------------------------------------------------------------------------------------------------------

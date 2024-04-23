@@ -1,0 +1,70 @@
+Name     :  Shah Mann Alpeshbhai
+Roll No   :  37
+Course   :  MCA - II
+Subject   :  JAVA programming
+-------------------------------------------------------------------------------------------------------------------------
+5. Write a generic class Stack<T> that can be used to represent stacks of objects of type T. The class
+should include methods push(), pop(), and isEmpty(). Inside the class, use an ArrayList to hold the
+items on the stack.
+-------------------------------------------------------------------------------------------------------------------------
+
+
+import java.util.ArrayList;
+
+public class Stack<T> {
+    private ArrayList<T> stack = new ArrayList<>();
+
+    public void push(T item) {
+        stack.add(item);
+    }
+
+    public T pop() {
+        if (isEmpty()) {
+            throw new IllegalStateException("Stack is empty");
+        }
+        return stack.remove(stack.size() - 1);
+    }
+
+    public boolean isEmpty() {
+        return stack.isEmpty();
+    }
+
+    public static void main(String[] args) {
+        Stack<Integer> intStack = new Stack<>();
+        intStack.push(18);
+        intStack.push(28);
+        intStack.push(10);
+        intStack.push(25);
+
+        System.out.println("Pop elements from the integer stack:");
+        while (!intStack.isEmpty()) {
+            System.out.println(intStack.pop());
+        }
+
+        Stack<String> stringStack = new Stack<>();
+        stringStack.push("aa");
+        stringStack.push("bb");
+        stringStack.push("cc");
+        stringStack.push("dd");
+
+        System.out.println("Pop elements from the string stack:");
+        while (!stringStack.isEmpty()) {
+            System.out.println(stringStack.pop());
+        }
+    }
+}
+
+-------------------------------------------------------------------------------------------------------------------------
+
+Pop elements from the integer stack:
+25
+10
+28
+18
+Pop elements from the string stack:
+dd
+cc
+bb
+aa
+
+-------------------------------------------------------------------------------------------------------------------------

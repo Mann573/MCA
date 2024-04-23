@@ -1,0 +1,108 @@
+Name     :  Shah Mann Alpeshbhai
+Roll No   :  37
+Course   :  MCA - II
+Subject   :  JAVA programming
+-------------------------------------------------------------------------------------------------------------------------
+q-1. Define an Employee class with Employee code , name , date of birth , and date of appointment . The Employee code 
+must have a format of year-designation-number. The year will be two digit code . The designation is single letter code M 
+for Manager , A for Administrative , T for Technical Staff , E for Executive Staff . The number is a three
+digit number. For Eg.87-M-123 ( year is 1987 , Designation is Manager and number is 123) 91-T-126 Write a java program 
+to read the employee code , name , date of birth , and date of appointment and validate the employee code. 
+If the employee code is incorrect a suitable user defined exception must be thrown . If the date of birth is after date of 
+appointment then throw another user defined exception.
+If all the details are correct then only create the employee object and display detail of
+employees and number of years of experience.
+-------------------------------------------------------------------------------------------------------------------------
+
+import java.sql.Date;
+import java.time.LocalDate;
+import java.util.Random;
+
+// import org.omg.PortableInterceptor.INACTIVE;
+
+public class EmployeeException extends Exception implements Comparable {
+    private String empcode ;
+
+    String name ;
+    Date DOB ;
+
+    Date DOA;
+    private Character Designation ;
+    Random randnumber = new Random() ;
+    Integer number = randnumber.nextInt(100);
+    public EmployeeException(String name, Date dOB, Date dOA, Character designation) {
+        validate();
+        this.name = name;
+        this.DOB = dOB;
+        DOA = dOA;
+        Designation = designation;
+        
+    }
+    
+    private void validate  () {
+        try  {
+            int res = DOB.compareTo(DOA);
+            if(res == -1) {
+                throw new Exception();
+            };
+            if(Designation!='M' || Designation!='A' || Designation!='T'|| Designation!='E') {
+                return ;
+            }
+        }catch(Exception e) {
+            System.err.println(e.getMessage());
+        }
+
+    }
+    public String getEmpCode() {
+        return String.valueOf(DOB.getYear()) + '-' + Designation + '-' +  String.valueOf(number.toString());
+        
+    }
+    @SuppressWarnings("deprecation")
+    @Override
+    public int compareTo(Object o) {
+
+
+          LocalDate date1 = LocalDate.of(DOB.getYear(),DOB.getMonth(),DOB.getDate());
+        LocalDate date2 = LocalDate.of(DOA.getYear(),DOA.getMonth(),DOA.getDate());
+
+        // Compare date1 to date2
+        int comparison = date1.compareTo(date2);
+        int result = 0;
+        if (comparison < 0) {
+            result = -1 ;
+            // System.out.println(date1 + " is before " + date2);
+        } else if (comparison > 0) {
+                result = 1 ;
+        } else {
+                result = 0;
+            // System.out.println(date1 + " is equal to " + date2);
+        }
+        return result;
+
+    }
+
+}
+
+
+import java.sql.Date;
+
+public class Main {
+    public static void main(String[] args) {
+        @SuppressWarnings("deprecation")
+        EmployeeException ex=new EmployeeException("aaa",new Date(1999,01,19),new Date(2001,05,23),'A');
+        @SuppressWarnings("deprecation")
+        EmployeeException ex1=new EmployeeException("bbb",new Date(2004,04,12),new Date(2005,05,27),'E');
+        @SuppressWarnings("deprecation")
+        EmployeeException ex2=new EmployeeException("ccc",new Date(1999,12,16),new Date(2012,18,29),'T');
+        @SuppressWarnings("deprecation")
+        EmployeeException ex3=new EmployeeException("ddd",new Date(2015,06,17),new Date(2030,04,31),'P');
+        System.out.println(ex.getEmpCode());
+        System.out.println(ex1.getEmpCode());
+        System.out.println(ex2.getEmpCode());
+        System.out.println(ex3.getEmpCode());
+    }
+}
+
+-------------------------------------------------------------------------------------------------------------------------
+
+-------------------------------------------------------------------------------------------------------------------------
