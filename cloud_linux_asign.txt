@@ -1,0 +1,21 @@
+steps to create Linux instance and steps to connect
+
+EC2 > Launch instance > amazon linux > free tier > create key (!PPK) > download key
+
+instance desc -> copy public ipv4 dns -> open Putty 
+
+//Putty interface
+-> goto connect > SSH > Auth > credentials > 
+
+
+select ppk key from download ->
+
+//Putty login interface
+ login as: ec2-user
+
+
+Assignment
+
+1. write steps to create windows instance and steps to connect
+2. write steps to create Linux instance and steps to connect
+3. write steps to create static website and steps to connect
