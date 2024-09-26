@@ -4,4 +4,4 @@ Emp2
 companyaddrem :- Adds layout and removes layout
 
 ----------------------Sessional- 2----------------------
-cmpimgview
+imgview :- Adding imageview which asks for camera permission
