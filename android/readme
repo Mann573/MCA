@@ -7,3 +7,4 @@ companyaddrem :- Adds layout and removes layout
 imgview :- Adding imageview which asks for camera permission
 workingimgviewe :- imageview used for adding profile
 notes1pageworking :- for notes app can go from "new note" to next but not other way around
+noteswithjugad :- notes fragment misses back clicklistener, differes from original code 
