@@ -11,3 +11,4 @@ noteswithjugad :- notes fragment misses back clicklistener, differes from origin
 
 17/10/24
 sqlcreatedb&table :- Created Database and table
+insert&update :- add and update records
